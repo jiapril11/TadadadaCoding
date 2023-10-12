@@ -22,7 +22,7 @@ export default function MainBanner() {
               lineHeight: "2",
             }}
             sequence={[
-              `Hello, stranger.\nWelcome to my blog :)\nHope you have good time here.`,
+              `Hello, stranger :)\nWelcome to my\nTadadadaCoding Blog`,
               10000,
               "",
             ]}
