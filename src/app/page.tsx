@@ -1,5 +1,11 @@
+import MainBanner from "./components/Home/MainBanner";
 import WidthLayout from "./components/WidthLayout";
 
 export default function Home() {
-  return <WidthLayout>Main</WidthLayout>;
+  return (
+    <>
+      <MainBanner />
+      <WidthLayout>Main</WidthLayout>
+    </>
+  );
 }
