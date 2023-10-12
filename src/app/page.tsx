@@ -1,9 +1,5 @@
-import Image from "next/image";
+import WidthLayout from "./components/WidthLayout";
 
 export default function Home() {
-  return (
-    <main className="bg-red-300 flex min-h-screen flex-col items-center justify-between p-24">
-      Main{" "}
-    </main>
-  );
+  return <WidthLayout>Main</WidthLayout>;
 }
