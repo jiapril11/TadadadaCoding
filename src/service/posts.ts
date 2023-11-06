@@ -21,6 +21,7 @@ export function getSortedPostsData(num?: number) {
       ...(matterResult.data as {
         title: string;
         date: string;
+        cover: string;
       }),
     };
   });

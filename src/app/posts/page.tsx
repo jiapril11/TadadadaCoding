@@ -1,22 +1,12 @@
 import React from "react";
 import WidthLayout from "../components/WidthLayout";
-import { getSortedPostsData } from "@/service/posts";
-import Link from "next/link";
+import Cards from "../components/Posts/Cards";
 
 export default async function PostsPage() {
-  const posts = getSortedPostsData();
   return (
     <WidthLayout>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>
-              <p>{post.title}</p>
-              <p>{post.date}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h2>Posts</h2>
+      <Cards />
     </WidthLayout>
   );
 }
