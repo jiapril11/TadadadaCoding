@@ -46,19 +46,26 @@ export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
-  const matterResult = matter(fileContents);
+  // const matterResult = matter(fileContents);
+  const { data, content } = matter(fileContents);
+  // console.log(matterResult);
 
-  const processdContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processdContent.toString();
+  // const processdContent = await remark()
+  //   .use(html)
+  //   .process(matterResult.content);
+  // const contentHtml = processdContent.toString();
+  // const contentHtml = processdContent;
+  const frontmatter = { title: data.title, date: data.date, cover: data.cover };
 
   return {
     id,
-    contentHtml,
-    ...(matterResult.data as {
-      title: string;
-      date: string;
-    }),
+    frontmatter,
+    content,
+    // contentHtml,
+    // ...(matterResult.data as {
+    //   title: string;
+    //   date: string;
+    //   cover: string;
+    // }),
   };
 }

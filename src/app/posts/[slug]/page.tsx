@@ -1,4 +1,5 @@
-import Date from "@/app/components/Posts/Date";
+import FrontMatterViewr from "@/app/components/Post/FrontMatterViewer";
+import MarkdownViewer from "@/app/components/Post/MarkdownViewer";
 import { getPostData } from "@/service/posts";
 import React from "react";
 
@@ -10,12 +11,13 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const postData = await getPostData(decodeURIComponent(slug));
+  const { frontmatter } = postData;
+  const { content, id } = postData;
+
   return (
-    <div>
-      <h2>{postData.title}</h2>
-      <p>{postData.id}</p>
-      <Date dateString={postData.date} />
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-    </div>
+    <article className="prose w-full min-w-[360px] max-w-[1200px] mx-auto pb-40">
+      <FrontMatterViewr frontmatter={frontmatter} />
+      <MarkdownViewer content={content} />
+    </article>
   );
 }

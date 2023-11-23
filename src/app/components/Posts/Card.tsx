@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Date from "./Date";
 
 type postProp = {
   id: string;
@@ -29,7 +30,7 @@ export default function Card({ post }: { post: postProp }) {
         </div>
         <div className="px-3 py-2">
           <p className="truncate mb-3 font-semibold">{post.title}</p>
-          <p className="text-right text-sm text-gray-500">{post.date}</p>
+          <Date dateString={post.date} />
         </div>
       </Link>
     </li>
