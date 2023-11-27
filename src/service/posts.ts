@@ -1,8 +1,6 @@
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "data", "posts");
 
@@ -31,41 +29,24 @@ export function getSortedPostsData(num?: number) {
     .slice(0, num ? num : allPostsData.length);
 }
 
-// export function getAllPostIds() {
-//   const fileNames = fs.readdirSync(postsDirectory);
-//   return fileNames.map((fileName) => {
-//     return {
-//       params: {
-//         id: fileName.replace(/\.md$/, ""),
-//       },
-//     };
-//   });
-// }
-
 export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
-  // const matterResult = matter(fileContents);
   const { data, content } = matter(fileContents);
-  // console.log(matterResult);
-
-  // const processdContent = await remark()
-  //   .use(html)
-  //   .process(matterResult.content);
-  // const contentHtml = processdContent.toString();
-  // const contentHtml = processdContent;
   const frontmatter = { title: data.title, date: data.date, cover: data.cover };
+
+  const postList = getSortedPostsData();
+  const currPost = postList.find((post) => post.id === id);
+  const index = postList.indexOf(currPost!);
+  const next = index > 0 ? postList[index - 1] : null;
+  const prev = index < postList.length - 1 ? postList[index + 1] : null;
 
   return {
     id,
     frontmatter,
     content,
-    // contentHtml,
-    // ...(matterResult.data as {
-    //   title: string;
-    //   date: string;
-    //   cover: string;
-    // }),
+    next,
+    prev,
   };
 }
