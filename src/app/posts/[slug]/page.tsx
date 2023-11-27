@@ -1,3 +1,4 @@
+import AdjacentPostCard from "@/app/components/Post/AdjacentPostCard";
 import FrontMatterViewr from "@/app/components/Post/FrontMatterViewer";
 import MarkdownViewer from "@/app/components/Post/MarkdownViewer";
 import { getPostData } from "@/service/posts";
@@ -11,13 +12,16 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const postData = await getPostData(decodeURIComponent(slug));
-  const { frontmatter } = postData;
-  const { content, id } = postData;
+  const { frontmatter, content, id, next, prev } = postData;
 
   return (
-    <article className="prose w-full min-w-[360px] max-w-[1200px] mx-auto pb-40">
+    <article className="prose relative w-full min-w-[360px] max-w-[1200px] mx-auto pb-24">
       <FrontMatterViewr frontmatter={frontmatter} />
       <MarkdownViewer content={content} />
+      <div className="flex justify-between gap-5 mt-24">
+        {prev && <AdjacentPostCard post={prev} type="prev" />}
+        {next && <AdjacentPostCard post={next} type="next" />}
+      </div>
     </article>
   );
 }

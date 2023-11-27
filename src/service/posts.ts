@@ -36,9 +36,17 @@ export async function getPostData(id: string) {
   const { data, content } = matter(fileContents);
   const frontmatter = { title: data.title, date: data.date, cover: data.cover };
 
+  const postList = getSortedPostsData();
+  const currPost = postList.find((post) => post.id === id);
+  const index = postList.indexOf(currPost!);
+  const next = index > 0 ? postList[index - 1] : null;
+  const prev = index < postList.length - 1 ? postList[index + 1] : null;
+
   return {
     id,
     frontmatter,
     content,
+    next,
+    prev,
   };
 }
