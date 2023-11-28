@@ -1,3 +1,4 @@
+import Carousel from "./components/Home/Carousel";
 import MainBanner from "./components/Home/MainBanner";
 import Cards from "./components/Posts/Cards";
 import WidthLayout from "./components/WidthLayout";
@@ -7,8 +8,7 @@ export default async function Home() {
     <>
       <MainBanner />
       <WidthLayout>
-        <h2>Posts</h2>
-        <Cards />
+        <Carousel />
       </WidthLayout>
     </>
   );
