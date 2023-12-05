@@ -15,7 +15,7 @@ export default async function PostPage({ params: { slug } }: Props) {
   const { frontmatter, content, id, next, prev } = postData;
 
   return (
-    <article className="prose relative w-full min-w-[360px] max-w-[1200px] mx-auto pb-24">
+    <article className="prose relative w-full min-w-[360px] max-w-[1200px] mx-auto pb-24 break-keep">
       <FrontMatterViewr frontmatter={frontmatter} />
       <MarkdownViewer content={content} />
       <div className="flex justify-between gap-5 mt-24">

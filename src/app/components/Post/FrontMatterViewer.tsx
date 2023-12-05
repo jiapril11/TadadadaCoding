@@ -22,7 +22,7 @@ export default function FrontMatterViewr({ frontmatter }: Props) {
       />
       <div className="px-3">
         <div className="mb-16">
-          <h2 className="text-3xl text-center">{title}</h2>
+          <h1 className="text-3xl text-center">{title}</h1>
           <Date dateString={date} />
         </div>
       </div>
