@@ -13,7 +13,7 @@ export default function Header() {
       <WidthLayout className="flex justify-between items-center">
         <h1>
           <Link href={"/"}>
-            <Image src={logo} alt="로고" priority />
+            <Image src={logo} alt="타다다다 코딩 로고" priority />
           </Link>
         </h1>
         <nav className={kreon.className}>

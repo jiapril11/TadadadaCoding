@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Date from "./Date";
+import DateNormal, { DateDistance } from "./Date";
 
 type postProp = {
   id: string;
@@ -10,9 +10,16 @@ type postProp = {
   cover: string;
 };
 
-export default function Card({ post }: { post: postProp }) {
+// TODO: dateType 상수화
+export default function Card({
+  post,
+  dateType,
+}: {
+  post: postProp;
+  dateType: "normal" | "distance";
+}) {
   return (
-    <li className="rounded-md shadow-md hover:shadow-lg">
+    <div className="rounded-md shadow-md hover:shadow-lg">
       <Link href={`/posts/${post.id}`}>
         <div className="relative h-28">
           {post.cover ? (
@@ -30,9 +37,13 @@ export default function Card({ post }: { post: postProp }) {
         </div>
         <div className="px-3 py-2">
           <p className="truncate mb-3 font-semibold">{post.title}</p>
-          <Date dateString={post.date} />
+          {dateType === "normal" ? (
+            <DateNormal dateString={post.date} />
+          ) : (
+            <DateDistance dateString={post.date} />
+          )}
         </div>
       </Link>
-    </li>
+    </div>
   );
 }
