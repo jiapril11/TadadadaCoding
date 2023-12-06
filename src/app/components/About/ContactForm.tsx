@@ -1,13 +1,21 @@
 "use client";
 import { useState } from "react";
 import Banner, { BannerData } from "../Banner";
+import { sendContactEmail } from "@/service/contact";
+
+type Form = {
+  from: string;
+  title: string;
+  message: string;
+};
+const DEFAULT_FORM = {
+  from: "",
+  title: "",
+  message: "",
+};
 
 export default function ContactForm() {
-  const [emailData, setEmailData] = useState({
-    email: "",
-    title: "",
-    message: "",
-  });
+  const [emailData, setEmailData] = useState<Form>(DEFAULT_FORM);
 
   const [banner, setBanner] = useState<BannerData | null>(null);
 
@@ -16,15 +24,30 @@ export default function ContactForm() {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setEmailData({ ...emailData, [e.target.name]: e.target.value });
+    setEmailData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setBanner({ message: "메일이 전송되었습니다.", state: "success" });
-    setTimeout(() => {
-      setBanner(null);
-    }, 3000);
+    sendContactEmail(emailData)
+      .then(() => {
+        setBanner({
+          message: "메일이 성공적으로 전송되었습니다.",
+          state: "success",
+        });
+        setEmailData(DEFAULT_FORM);
+      })
+      .catch((error) => {
+        setBanner({
+          message: "메일 전송이 실패되었습니다. 다시 시도해주세요.",
+          state: "error",
+        });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setBanner(null);
+        }, 3000);
+      });
   };
 
   const inputStyle = "w-full px-3 py-2 border border-gray-200 rounded-sm";
@@ -45,7 +68,8 @@ export default function ContactForm() {
                 <input
                   className={inputStyle}
                   type="text"
-                  name="email"
+                  name="from"
+                  value={emailData.from}
                   placeholder="Your email address"
                   onChange={handleChangeInput}
                 />
@@ -58,6 +82,7 @@ export default function ContactForm() {
                   className={inputStyle}
                   type="text"
                   name="title"
+                  value={emailData.title}
                   placeholder="Title of your message"
                   onChange={handleChangeInput}
                 />
@@ -67,8 +92,9 @@ export default function ContactForm() {
               <label>
                 <p className={labelTextStyle}>Message</p>
                 <textarea
-                  className={inputStyle}
+                  className={`${inputStyle} h-52`}
                   name="message"
+                  value={emailData.message}
                   placeholder="Type your message here."
                   onChange={handleChangeInput}
                 />
