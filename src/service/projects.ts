@@ -4,6 +4,19 @@ import path from "path";
 
 const projectsDirectory = path.join(process.cwd(), "data", "projects");
 
+export type ProjectData = {
+  id: string;
+  title: string;
+  url: string;
+  date: string;
+  cover: string;
+  images?: string[];
+  github: string;
+  people?: string;
+  categories: string[];
+  description: string;
+  skills: string[];
+};
 export function getSortedProjectsData() {
   const fileNames = fs.readdirSync(projectsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -21,9 +34,7 @@ export function getSortedProjectsData() {
         url: string;
         date: string;
         cover: string;
-        // images: string[];
         github: string;
-        // people: string;
         categories: string[];
         description: string;
         skills: string[];

@@ -5,10 +5,10 @@ import Card from "./Card";
 export default function Cards() {
   const posts = getSortedPostsData();
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <ul className="grid grid-cols-4 gap-5">
       {posts.map((post) => (
         <Card post={post} key={post.id} dateType="normal" />
       ))}
-    </div>
+    </ul>
   );
 }

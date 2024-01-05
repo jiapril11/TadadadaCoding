@@ -19,7 +19,7 @@ export default function Card({
   dateType: "normal" | "distance";
 }) {
   return (
-    <div className="rounded-md shadow-md hover:shadow-lg">
+    <li className="relative border border-black rounded-md overflow-hidden">
       <Link href={`/posts/${post.id}`}>
         <div className="relative h-28">
           {post.cover ? (
@@ -44,6 +44,6 @@ export default function Card({
           )}
         </div>
       </Link>
-    </div>
+    </li>
   );
 }
