@@ -1,6 +1,5 @@
-import Carousel from "./components/Home/Carousel";
+import PostCarousel from "./components/Home/Carousel";
 import MainBanner from "./components/Home/MainBanner";
-import Cards from "./components/Posts/Cards";
 import WidthLayout from "./components/WidthLayout";
 
 export default async function Home() {
@@ -8,7 +7,7 @@ export default async function Home() {
     <>
       <MainBanner />
       <WidthLayout>
-        <Carousel />
+        <PostCarousel />
       </WidthLayout>
     </>
   );

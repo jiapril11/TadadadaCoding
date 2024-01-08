@@ -31,7 +31,10 @@ export default function MarkdownViewer({ content }: Props) {
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
             ) : (
-              <code {...rest} className={`px-1 bg-sky-100`}>
+              <code
+                {...rest}
+                className={`px-1 bg-sky-100 before:content-[''] after:content-['']`}
+              >
                 {children}
               </code>
             );
