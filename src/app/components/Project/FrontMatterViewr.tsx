@@ -24,7 +24,7 @@ export default function FrontMatterViewr({
                   src={`/imgs/projects/amigo_signal/${image}.png`}
                   alt={`${title} 이미지`}
                   width={600}
-                  height={300}
+                  height={500}
                   className="mx-auto"
                 />
               ))}

@@ -10,6 +10,7 @@ images:
   - "amigo_signal_04"
   - "amigo_signal_05"
   - "amigo_signal_06"
+  - "amigo_signal_07"
 github: "https://github.com/congjiwon/amigo_signal"
 people: "6명(Frontend-5, Designer-1)"
 categories:

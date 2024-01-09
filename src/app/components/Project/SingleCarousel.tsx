@@ -30,8 +30,8 @@ export default function SingleCarousel({ children }: Props) {
   return (
     <Carousel
       infinite
-      autoPlay={false}
-      // autoPlaySpeed={5000}
+      autoPlay={true}
+      autoPlaySpeed={5000}
       responsive={responsive}
       partialVisible={false}
       // itemClass="text-center"
