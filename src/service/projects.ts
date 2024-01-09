@@ -5,7 +5,7 @@ import path from "path";
 const projectsDirectory = path.join(process.cwd(), "data", "projects");
 
 export type ProjectData = {
-  id: string;
+  id?: string;
   title: string;
   url: string;
   date: string;

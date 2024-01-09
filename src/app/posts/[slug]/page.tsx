@@ -12,7 +12,7 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const postData = await getPostData(decodeURIComponent(slug));
-  const { frontmatter, content, id, next, prev } = postData;
+  const { frontmatter, content, next, prev } = postData;
 
   return (
     <article className="prose relative w-full min-w-[360px] max-w-[1200px] mx-auto pb-24 break-keep">
