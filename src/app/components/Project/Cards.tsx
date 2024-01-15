@@ -12,7 +12,7 @@ export default function Cards({
   selectedCategory: selectedCategoryType;
 }) {
   return (
-    <ul className="grid grid-cols-4 gap-5">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mb-10 sm:mb-16">
       {projects
         .filter((project) =>
           selectedCategory

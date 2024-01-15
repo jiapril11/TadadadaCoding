@@ -2,11 +2,12 @@
 title: "Tadadada Coding"
 url: "https://www.tadadadacoding.com/"
 date: "2023-11 ~ "
-cover: "amigo_signal"
+imagePath: "next_blog"
+cover: "next_blog.png"
 images:
-  - "amigo_signal"
-  - "amigo_signal_02"
-  - "amigo_signal_03"
+  - "amigo_signal.png"
+  - "amigo_signal_02.png"
+  - "amigo_signal_03.png"
 github: "https://github.com/jiapril11/TadadadaCoding"
 people: "1명(Frontend-1"
 categories:

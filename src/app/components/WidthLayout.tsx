@@ -10,7 +10,7 @@ export default function WidthLayout({
   return (
     <div className="w-full flex justify-center">
       <div
-        className={`w-full min-w-[360px] max-w-[1200px] px-3 ${
+        className={`w-full min-w-[360px] max-w-[1200px] px-3 box-border ${
           className ? className : ""
         }`}
       >

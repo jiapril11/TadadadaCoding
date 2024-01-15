@@ -10,17 +10,19 @@ export default function Card({ project }: { project: ProjectData }) {
   return (
     <li className="relative border border-black rounded-md overflow-hidden">
       <Link href={`/projects/${project.id}`}>
-        <Image
-          src={`/imgs/projects/amigo_signal/${project.cover}.png`}
-          alt={`${project.title} 썸네일`}
-          width={300}
-          height={300}
-        />
+        <div className="relative h-[250px] md:h-[200px]">
+          <Image
+            src={`/imgs/projects/${project.imagePath}/${project.cover}`}
+            alt={`${project.title} 썸네일`}
+            fill={true}
+            className="object-cover"
+          />
+        </div>
         <div className="flex space-x-1 absolute top-3 left-3">
           {project.categories.map((category, i) => (
             <span
               key={i}
-              className="px-2 text-sm text-white bg-blue-200/75 rounded-md"
+              className="px-2 box-border text-sm text-white bg-blue-200/75 rounded-md"
             >
               {category}
             </span>

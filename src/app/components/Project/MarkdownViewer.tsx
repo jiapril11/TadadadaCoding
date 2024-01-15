@@ -4,13 +4,13 @@ import Markdown from "react-markdown";
 export default function MarkdownViewer({ content }: { content: string }) {
   return (
     <WidthLayout>
-      <div className="prose max-w-full pt-10 pb-20">
+      <div className="prose max-w-full pt-10 pb-20 break-keep">
         <Markdown
           components={{
             code(props) {
               return (
                 <code
-                  className={`px-1 bg-sky-100 before:content-[''] after:content-['']`}
+                  className={`px-1 box-border bg-sky-100 before:content-[''] after:content-['']`}
                 >
                   {props.children}
                 </code>

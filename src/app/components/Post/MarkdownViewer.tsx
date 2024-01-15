@@ -12,9 +12,9 @@ type Props = {
 
 export default function MarkdownViewer({ content }: Props) {
   return (
-    <>
+    <div className="prose max-w-full">
       <Markdown
-        className={`px-3`}
+        className={`md:px-3 xl:px-0 box-border`}
         remarkPlugins={[remarkGfm]}
         components={{
           code(props) {
@@ -33,7 +33,7 @@ export default function MarkdownViewer({ content }: Props) {
             ) : (
               <code
                 {...rest}
-                className={`px-1 bg-sky-100 before:content-[''] after:content-['']`}
+                className={`px-1 box-border bg-sky-100 before:content-[''] after:content-['']`}
               >
                 {children}
               </code>
@@ -48,17 +48,17 @@ export default function MarkdownViewer({ content }: Props) {
           },
           img: (image) => (
             <Image
-              className="max-w-lg max-h-60 object-cover object-center mx-auto"
+              className="w-full md:w-9/12 lg:-7/12 h-auto mx-auto"
               src={image.src || ""}
               alt={image.alt || ""}
-              width={500}
-              height={300}
+              width={`880`}
+              height={`700`}
             />
           ),
         }}
       >
         {content}
       </Markdown>
-    </>
+    </div>
   );
 }

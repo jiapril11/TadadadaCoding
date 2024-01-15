@@ -10,7 +10,7 @@ export default function CategoryButtons({
   handleCategory: (category: string) => void;
 }) {
   const buttonStyle =
-    "px-3 py-1 text-sm rounded-md border border-black hover:bg-black hover:text-white";
+    "px-3 py-1 box-border text-sm rounded-md border border-black hover:bg-black hover:text-white";
   const activeButtonStyle = "bg-black text-white";
 
   return (

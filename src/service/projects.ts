@@ -10,6 +10,7 @@ export type ProjectData = {
   url: string;
   date: string;
   cover: string;
+  imagePath: string;
   images?: string[];
   github: string;
   people?: string;
@@ -33,6 +34,7 @@ export function getSortedProjectsData() {
         title: string;
         url: string;
         date: string;
+        imagePath: string;
         cover: string;
         github: string;
         categories: string[];
@@ -54,6 +56,7 @@ export async function getProjectData(id: string) {
     title: data.title,
     url: data.url,
     date: data.date,
+    imagePath: data.imagePath,
     cover: data.cover,
     images: data.images,
     github: data.github,
