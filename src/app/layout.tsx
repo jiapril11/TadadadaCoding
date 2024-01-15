@@ -22,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={`${notoSans.className} min-h-screen flex flex-col`}>
+      <body
+        className={`${notoSans.className} min-h-screen flex flex-col pt-20`}
+      >
         <Header />
         <main className="grow">{children}</main>
         <Footer />

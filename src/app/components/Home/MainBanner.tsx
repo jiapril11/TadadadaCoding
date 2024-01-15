@@ -11,16 +11,9 @@ export default function MainBanner() {
   return (
     <div className=" bg-black text-white">
       <WidthLayout className={pixelifySans.className}>
-        <div className="text-center">
+        <div className="h-[200px] flex justify-center items-center text-center sm:h-[300px] ">
           <TypeAnimation
-            style={{
-              whiteSpace: "pre-line",
-              display: "block",
-              height: "270px",
-              padding: "40px",
-              fontSize: "1.725rem",
-              lineHeight: "2",
-            }}
+            className="h-[150px] block text-2xl/loose whitespace-pre-line sm:h-[200px] sm:text-3xl/loose"
             sequence={[
               `Hello, stranger :)\nWelcome to my\nTadadadaCoding Blog`,
               10000,

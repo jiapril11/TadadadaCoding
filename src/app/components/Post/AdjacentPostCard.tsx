@@ -13,10 +13,12 @@ export default function AdjacentPostCard({ post, type }: Props) {
       {
         <Link
           href={`/posts/${id}`}
-          className="group w-full px-3 py-6 no-underline  bg-gray-100 rounded-md shadow-sm hover:shadow-md transition"
+          className={`group w-full flex items-center px-1 py-3 sm:px-3 sm:py-6 box-border no-underline bg-gray-100 rounded-md shadow-sm hover:shadow-md transition ${
+            type === "next" && "justify-end"
+          }`}
         >
           <div
-            className={`flex gap-3 flex-wrap items-center ${
+            className={`flex gap-3 items-center min-w-0 ${
               type === "next" && "justify-end text-right"
             }`}
           >

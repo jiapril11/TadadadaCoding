@@ -19,23 +19,23 @@ export default function Card({
   dateType: "normal" | "distance";
 }) {
   return (
-    <div className="rounded-md shadow-md hover:shadow-lg">
+    <li className="relative border border-black rounded-md overflow-hidden">
       <Link href={`/posts/${post.id}`}>
-        <div className="relative h-28">
+        <div className="relative h-[250px] md:h-[200px]">
           {post.cover ? (
             <Image
               src={`/imgs/blog/cover/${post.cover}.jpeg`}
               alt={`${post.title} 썸네일`}
               fill
-              className="rounded-tl-md rounded-tr-md"
+              className="object-cover"
             />
           ) : (
-            <div className="h-full flex justify-center items-center text-gray-400 bg-gray-800 rounded-tl-md rounded-tr-md">
+            <div className="h-full flex justify-center items-center text-gray-400 bg-gray-800">
               <span>No Image</span>
             </div>
           )}
         </div>
-        <div className="px-3 py-2">
+        <div className="px-3 py-2 box-border">
           <p className="truncate mb-3 font-semibold">{post.title}</p>
           {dateType === "normal" ? (
             <DateNormal dateString={post.date} />
@@ -44,6 +44,6 @@ export default function Card({
           )}
         </div>
       </Link>
-    </div>
+    </li>
   );
 }
