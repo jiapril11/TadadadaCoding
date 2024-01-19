@@ -2,20 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import DateNormal, { DateDistance } from "./Date";
-
-type postProp = {
-  id: string;
-  title: string;
-  date: string;
-  cover: string;
-};
+import { PostData } from "@/service/posts";
 
 // TODO: dateType 상수화
 export default function Card({
   post,
   dateType,
 }: {
-  post: postProp;
+  post: PostData;
   dateType: "normal" | "distance";
 }) {
   return (

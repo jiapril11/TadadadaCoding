@@ -4,6 +4,14 @@ import matter from "gray-matter";
 
 const postsDirectory = path.join(process.cwd(), "data", "posts");
 
+export type PostData = {
+  id?: string;
+  title: string;
+  date: string;
+  cover: string;
+  category: string;
+};
+
 export function getSortedPostsData(num?: number) {
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -20,6 +28,7 @@ export function getSortedPostsData(num?: number) {
         title: string;
         date: string;
         cover: string;
+        category: string;
       }),
     };
   });
@@ -34,7 +43,12 @@ export async function getPostData(id: string) {
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   const { data, content } = matter(fileContents);
-  const frontmatter = { title: data.title, date: data.date, cover: data.cover };
+  const frontmatter = {
+    title: data.title,
+    date: data.date,
+    cover: data.cover,
+    category: data.category,
+  };
 
   const postList = getSortedPostsData();
   const currPost = postList.find((post) => post.id === id);

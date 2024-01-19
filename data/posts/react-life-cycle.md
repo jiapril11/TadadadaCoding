@@ -2,6 +2,7 @@
 title: "React Life Cycle"
 date: "2023-11-28"
 cover: "cover03"
+category: "React"
 ---
 
 ## React Lifecycle method
