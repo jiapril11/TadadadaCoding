@@ -2,6 +2,7 @@
 title: "When to Use Static Generation v.s. Server-side Rendering2"
 date: "2023-01-03"
 cover: "cover01"
+category: "Error"
 ---
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
