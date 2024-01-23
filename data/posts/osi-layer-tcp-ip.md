@@ -1,7 +1,7 @@
 ---
 title: "OSI 7계층, TCP 4계층"
 date: "2024-01-23"
-cover: "cover01"
+cover: "osi_layer.jpg"
 category: "Network"
 published: false
 ---

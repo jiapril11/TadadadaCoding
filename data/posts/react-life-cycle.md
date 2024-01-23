@@ -1,7 +1,7 @@
 ---
 title: "React Life Cycle"
 date: "2024-01-17"
-cover: "cover03"
+cover: "life_cycle.jpg"
 category: "React"
 published: true
 ---

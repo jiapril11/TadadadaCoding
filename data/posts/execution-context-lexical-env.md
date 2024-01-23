@@ -1,7 +1,7 @@
 ---
 title: "실행 컨텍스트와 렉시컬 환경"
 date: "2024-01-15"
-cover: "cover02"
+cover: "lexical.jpg"
 category: "Javascript"
 published: true
 ---

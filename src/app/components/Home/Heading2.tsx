@@ -10,7 +10,7 @@ export default function Heading2({
 }) {
   return (
     <div className="flex justify-between items-center mb-5">
-      <h2 className="text-xl font-medium">{title}</h2>
+      <h2 className="text-xl font-semibold">{title}</h2>
       <Link
         href={link}
         className="flex items-center gap-0.5 font-semibold hover:underline"

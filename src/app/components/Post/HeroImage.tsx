@@ -14,7 +14,7 @@ export default function HeroImage({ frontmatter }: Props) {
     <>
       <div className={`relative h-[300px] overflow-auto`}>
         <Image
-          src={`/imgs/blog/cover/${cover}.jpeg`}
+          src={`/imgs/blog/cover/${cover}`}
           alt={`${title} 썸네일`}
           // placeholder="blur"
           fill

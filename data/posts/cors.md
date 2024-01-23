@@ -1,7 +1,7 @@
 ---
 title: "CORS"
 date: "2024-01-13"
-cover: "cover01"
+cover: "cors.jpg"
 category: "Network"
 published: true
 ---

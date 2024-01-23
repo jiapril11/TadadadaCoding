@@ -12,7 +12,9 @@ import Link from "next/link";
 import { DateDistance } from "../Posts/Date";
 import { PostData } from "@/service/posts";
 
-const myFont = localFont({ src: "../../../../public/fonts/her-leeoksun.ttf" });
+const oksunFont = localFont({
+  src: "../../../../public/fonts/her-leeoksun.ttf",
+});
 
 const postIcons: Record<string, React.ReactElement> = {
   react: <BiLogoReact />,
@@ -42,7 +44,7 @@ export default function List({ post }: { post: PostData }) {
             )}
           </div>
           <div
-            className={`relative w-full md:w-[78%] lg:w-[72%] px-1 sm:px-2 lg:px-3 text-xl ${myFont.className} group-hover:text-sky-500 lg:after:content-[''] lg:after:w-px lg:after:h-5/6 lg:after:absolute lg:after:top-1/2 lg:after:left-0 lg:after:-translate-y-1/2 lg:after:bg-black lg:before:content-[''] lg:before:w-px lg:before:h-5/6 lg:before:absolute lg:before:top-1/2 lg:before:right-0 lg:before:-translate-y-1/2 lg:before:-translate-x-3 lg:before:bg-black`}
+            className={`relative w-full md:w-[78%] lg:w-[72%] px-1 sm:px-2 lg:px-3 text-xl ${oksunFont.className} group-hover:text-sky-500 lg:after:content-[''] lg:after:w-px lg:after:h-5/6 lg:after:absolute lg:after:top-1/2 lg:after:left-0 lg:after:-translate-y-1/2 lg:after:bg-black lg:before:content-[''] lg:before:w-px lg:before:h-5/6 lg:before:absolute lg:before:top-1/2 lg:before:right-0 lg:before:-translate-y-1/2 lg:before:-translate-x-3 lg:before:bg-black`}
           >
             <div className="flex items-center gap-1">
               {Object.keys(postIcons).includes(postCategory) && (
