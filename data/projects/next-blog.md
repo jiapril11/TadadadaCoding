@@ -1,5 +1,5 @@
 ---
-title: "Tadadada Coding"
+title: "Tadadada Coding Blog"
 url: "https://www.tadadadacoding.com/"
 date: "2023-11 ~ "
 imagePath: "next_blog"

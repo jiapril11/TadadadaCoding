@@ -1,13 +1,12 @@
 ---
 title: "React Life Cycle"
-date: "2023-11-28"
+date: "2024-01-17"
 cover: "cover03"
 category: "React"
+published: true
 ---
 
-## React Lifecycle method
-
-### 📌 class component
+## 📌 class component
 
 **Mounting**:  
 constructor → getDerivedStateFromProps → render → (React DOM 및 refs 업데이트) → componentDidMount  
@@ -30,6 +29,6 @@ https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
 참고: [25. LifeCycle Method · GitBook](https://react.vlpt.us/basic/25-lifecycle.html)
 
-### 📌 functional component
+## 📌 functional component
 
 useEffect를 사용하며 해당 훅은 컴포넌트가 mount 될 때, defendency array의 데이터가 변경될 때, 컴포넌트가 unmount 될 때 작성한 함수가 실행됨
