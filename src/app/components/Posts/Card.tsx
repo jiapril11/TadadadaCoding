@@ -15,10 +15,10 @@ export default function Card({
   return (
     <li className="relative border border-black rounded-md overflow-hidden">
       <Link href={`/posts/${post.id}`}>
-        <div className="relative h-[250px] md:h-[200px]">
+        <div className="relative h-[200px]">
           {post.cover ? (
             <Image
-              src={`/imgs/blog/cover/${post.cover}.jpeg`}
+              src={`/imgs/blog/cover/${post.cover}`}
               alt={`${post.title} 썸네일`}
               fill
               className="object-cover"

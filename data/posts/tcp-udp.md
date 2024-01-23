@@ -1,7 +1,7 @@
 ---
 title: "TCP와 UDP"
 date: "2024-01-20"
-cover: "cover01"
+cover: "tcp_udp.jpeg"
 category: "Javascript"
 published: true
 ---

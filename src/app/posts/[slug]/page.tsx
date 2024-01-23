@@ -5,6 +5,7 @@ import WidthLayout from "@/app/components/WidthLayout";
 import { getPostData } from "@/service/posts";
 import DateNormal from "@/app/components/Posts/Date";
 import HeroImage from "@/app/components/Post/HeroImage";
+import ListBackBtns from "@/app/components/Posts/ListBackBtns";
 
 type Props = {
   params: {
@@ -17,7 +18,7 @@ export default async function PostPage({ params: { slug } }: Props) {
   const { frontmatter, content, next, prev } = postData;
 
   return (
-    <article className="relative w-full pb-24 break-keep">
+    <article className="relative w-full pb-10 break-keep">
       <HeroImage frontmatter={frontmatter} />
       <WidthLayout>
         <div className="mt-8 mb-16">
@@ -33,6 +34,8 @@ export default async function PostPage({ params: { slug } }: Props) {
           {prev && <AdjacentPostCard post={prev} type="prev" />}
           {next && <AdjacentPostCard post={next} type="next" />}
         </div>
+
+        <ListBackBtns />
       </WidthLayout>
     </article>
   );

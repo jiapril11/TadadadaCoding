@@ -1,7 +1,7 @@
 ---
 title: "HTTP Status codes"
 date: "2024-01-20"
-cover: "cover03"
+cover: "httpcode.jpg"
 category: "Network"
 published: true
 ---
