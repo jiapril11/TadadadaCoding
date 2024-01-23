@@ -29,11 +29,13 @@ export function getSortedPostsData(num?: number) {
         date: string;
         cover: string;
         category: string;
+        published: true;
       }),
     };
   });
 
   return allPostsData
+    .filter((post) => post.published)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
     .slice(0, num ? num : allPostsData.length);
 }

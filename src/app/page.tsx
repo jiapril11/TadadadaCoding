@@ -1,8 +1,11 @@
-import PostCarousel from "./components/Home/Carousel";
+import dynamic from "next/dynamic";
 import MainBanner from "./components/Home/MainBanner";
 import RecentPosts from "./components/Home/RecentPosts";
-import Lists from "./components/Posts/Lists";
 import WidthLayout from "./components/WidthLayout";
+// import TwinCarousel from "./components/Home/TwinCarousel";
+const NoSSRCarousel = dynamic(() => import("./components/Home/TwinCarousel"), {
+  ssr: false,
+});
 
 export default async function Home() {
   return (
@@ -10,6 +13,7 @@ export default async function Home() {
       <MainBanner />
       <WidthLayout>
         <RecentPosts />
+        <NoSSRCarousel />
       </WidthLayout>
     </>
   );
