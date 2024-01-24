@@ -1,9 +1,20 @@
-import Image from "next/image";
+import dynamic from "next/dynamic";
+import MainBanner from "./components/Home/MainBanner";
+import RecentPosts from "./components/Home/RecentPosts";
+import WidthLayout from "./components/WidthLayout";
+// import TwinCarousel from "./components/Home/TwinCarousel";
+const NoSSRCarousel = dynamic(() => import("./components/Home/TwinCarousel"), {
+  ssr: false,
+});
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="bg-red-300 flex min-h-screen flex-col items-center justify-between p-24">
-      Main{" "}
-    </main>
+    <>
+      <MainBanner />
+      <WidthLayout>
+        <RecentPosts />
+        <NoSSRCarousel />
+      </WidthLayout>
+    </>
   );
 }

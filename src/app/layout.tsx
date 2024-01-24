@@ -1,8 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Kreon, Noto_Sans } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 
-const kreon = Kreon({ subsets: ["latin"] });
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 const notoSans = Noto_Sans({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
@@ -20,7 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={notoSans.className}>{children}</body>
+      <body
+        className={`${notoSans.className} min-h-screen flex flex-col pt-20`}
+      >
+        <Header />
+        <main className="grow">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
