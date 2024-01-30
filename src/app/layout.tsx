@@ -11,8 +11,25 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Tadadada Coding",
-  description: "Ji's Blog",
+  metadataBase: new URL("https://tadadadacoding.com"),
+  title: {
+    default: "Tadadada Coding",
+    template: "%s | Tadadada Coding",
+  },
+  description: "IT 관련 공부 내용을 정리하고 작업한 프로젝트를 소개하는 블로그",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: {
+      default: "Tadadada Coding",
+      template: "%s | Tadadada Coding",
+    },
+    description:
+      "IT 관련 공부 내용을 정리하고 작업한 프로젝트를 소개하는 블로그",
+    url: "https://tadadadacoding.com",
+    siteName: "Tadadada Coding",
+  },
 };
 
 export default function RootLayout({
