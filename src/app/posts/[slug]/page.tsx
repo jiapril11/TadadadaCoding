@@ -6,12 +6,29 @@ import { getPostData } from "@/service/posts";
 import DateNormal from "@/app/components/Posts/Date";
 import HeroImage from "@/app/components/Post/HeroImage";
 import ListBackBtns from "@/app/components/Posts/ListBackBtns";
+import { Metadata } from "next";
 
 type Props = {
   params: {
     slug: string;
   };
 };
+
+export async function generateMetadata({
+  params: { slug },
+}: Props): Promise<Metadata> {
+  const {
+    frontmatter: { title },
+  } = await getPostData(decodeURIComponent(slug));
+  return {
+    title,
+    description: title + " 블로그 포스트",
+    openGraph: {
+      title: title,
+      description: title + " 블로그 포스트",
+    },
+  };
+}
 
 export default async function PostPage({ params: { slug } }: Props) {
   const postData = await getPostData(decodeURIComponent(slug));

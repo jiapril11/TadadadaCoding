@@ -2,6 +2,16 @@ import WidthLayout from "../components/WidthLayout";
 import { getSortedProjectsData } from "@/service/projects";
 import List from "../components/Project/List";
 import { Kreon } from "next/font/google";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Projects",
+  description: "Projects using React.js Next.js Javascript Typescript",
+  openGraph: {
+    title: "My Projects",
+    description: "Projects using React.js Next.js Javascript Typescript",
+  },
+};
 
 const kreon = Kreon({ subsets: ["latin"] });
 
