@@ -6,8 +6,18 @@ import { Kreon } from "next/font/google";
 import ViewButton from "../components/Posts/ViewButton";
 import CategoryBtn from "../components/Posts/CategoryBtn";
 import CategorySelect from "../components/Posts/CategorySelect";
+import { Metadata } from "next";
 
 const kreon = Kreon({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "IT Posts",
+  description: "Posts about IT and Coding",
+  openGraph: {
+    title: "IT Posts",
+    description: "Posts about IT and Coding",
+  },
+};
 
 export default function PostsPage() {
   const posts = getSortedPostsData();
