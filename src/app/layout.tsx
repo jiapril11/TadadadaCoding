@@ -4,6 +4,7 @@ import { Noto_Sans } from "next/font/google";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const notoSans = Noto_Sans({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -46,6 +47,8 @@ export default function RootLayout({
         <main className="grow">{children}</main>
         <Footer />
       </body>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER!} />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS!} />
     </html>
   );
 }
