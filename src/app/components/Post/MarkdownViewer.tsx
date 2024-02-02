@@ -2,7 +2,6 @@
 
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import remarkBreak from "remark-breaks";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Image from "next/image";
@@ -17,7 +16,7 @@ export default function MarkdownViewer({ content }: Props) {
       <Markdown
         className={`md:px-3 xl:px-0 box-border`}
         skipHtml={false}
-        remarkPlugins={[remarkGfm, remarkBreak]}
+        remarkPlugins={[remarkGfm]}
         components={{
           code(props) {
             const { ref, children, className, node, ...rest } = props;
