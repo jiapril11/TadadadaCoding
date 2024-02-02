@@ -15,11 +15,11 @@ export default function MarkdownViewer({ content }: Props) {
     <div className="prose max-w-full">
       <Markdown
         className={`md:px-3 xl:px-0 box-border`}
+        skipHtml={false}
         remarkPlugins={[remarkGfm]}
         components={{
           code(props) {
             const { ref, children, className, node, ...rest } = props;
-
             const match = /language-(\w+)/.exec(className || "");
             return match ? (
               <SyntaxHighlighter
@@ -54,6 +54,11 @@ export default function MarkdownViewer({ content }: Props) {
               width={`880`}
               height={`700`}
             />
+          ),
+          blockquote: ({ children }) => (
+            <blockquote className="not-prose px-7 py-5 border-l-4 italic bg-gray-50">
+              {children}
+            </blockquote>
           ),
         }}
       >
