@@ -7,6 +7,7 @@ import {
 } from "react-icons/bi";
 import { TbBrandNextjs } from "react-icons/tb";
 import { FaCss3Alt, FaHtml5, FaGithub, FaNetworkWired } from "react-icons/fa";
+import { AiFillSetting } from "react-icons/ai";
 import localFont from "next/font/local";
 import Link from "next/link";
 import DateNormal from "./Date";
@@ -25,6 +26,7 @@ export const postIcons: Record<string, React.ReactElement> = {
   network: <FaNetworkWired />,
   error: <BiSolidError />,
   etc: <BiCoffeeTogo />,
+  os: <AiFillSetting />,
 };
 
 export default function List({ post }: { post: PostData }) {
