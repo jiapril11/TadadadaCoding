@@ -1,4 +1,4 @@
-import { getProjectData } from "@/service/projects";
+import { getProjectData, getSortedProjectsData } from "@/service/projects";
 import FrontMatterViewr from "@/app/components/Project/FrontMatterViewr";
 import MarkdownViewer from "@/app/components/Project/MarkdownViewer";
 import { Metadata } from "next";
@@ -34,4 +34,12 @@ export default async function ProjectPage({ params: { slug } }: Props) {
       <MarkdownViewer content={project.content} />
     </section>
   );
+}
+
+export async function generateStaticParams() {
+  const posts = getSortedProjectsData();
+
+  return posts.map((post) => ({
+    slug: post.id,
+  }));
 }
