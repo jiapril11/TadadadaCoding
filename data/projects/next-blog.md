@@ -28,7 +28,19 @@ skills:
   - "Figma"
 ---
 
-## Role
+## Main
 
-- 포스트:
-- 메일:
+- `react-type-animation`을 사용하여 타이핑 애니메이션 구현
+- 프로젝트 트윈 캐러설을 라이브러리 사용 없이 `useState`와 css를 이용하여 컴포넌트를 생성하여 구현
+
+## About & Contact
+
+- `zod`로 form의 유효성을 체크하고 `nodemailer`를 통해 메일 전송 구축
+
+## Posts
+
+- grid view, list view 상태를 `zustand`를 사용하여 전역적으로 관리
+
+## Post & Project
+
+- `gray-matter`로 frontmatter와 content 분리하고 content의 markdown은 `react-markdown`를 통해 표현함
