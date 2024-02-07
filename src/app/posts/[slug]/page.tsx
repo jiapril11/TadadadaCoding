@@ -2,7 +2,7 @@ import React from "react";
 import AdjacentPostCard from "@/app/components/Post/AdjacentPostCard";
 import MarkdownViewer from "@/app/components/Post/MarkdownViewer";
 import WidthLayout from "@/app/components/WidthLayout";
-import { getPostData } from "@/service/posts";
+import { getPostData, getSortedPostsData } from "@/service/posts";
 import DateNormal from "@/app/components/Posts/Date";
 import HeroImage from "@/app/components/Post/HeroImage";
 import ListBackBtns from "@/app/components/Posts/ListBackBtns";
@@ -56,4 +56,12 @@ export default async function PostPage({ params: { slug } }: Props) {
       </WidthLayout>
     </article>
   );
+}
+
+export async function generateStaticParams() {
+  const posts = getSortedPostsData();
+
+  return posts.map((post) => ({
+    slug: post.id,
+  }));
 }
