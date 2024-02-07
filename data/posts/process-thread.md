@@ -29,8 +29,7 @@ PCB는 프로세스와 관련된 정보를 저장하는 자료 구조로 메모�
 
 ### 문맥 교환(Context switching)
 
-CPU 사용이 프로세스A에서 프로세스B로 바뀔 때, 이전까지 실행했던 내용을 이어 다시 재개 하기 위해 기억해야할 정보를 문맥(Context)라고 하며 이런 문맥은 프로세스의 PCB에 표현되어 있음.
-
+CPU 사용이 프로세스A에서 프로세스B로 바뀔 때, 이전까지 실행했던 내용을 이어 다시 재개 하기 위해 기억해야할 정보를 문맥(Context)라고 하며 이런 문맥은 프로세스의 PCB에 표현되어 있음.  
 실행중인 프로세스의 문맥을 PCB에 백업하고, 실행될 프로세스의 문맥을 PCB에서 가져와 실행하는 것을 ‘문맥 교환’이라고 함.
 
 ![컨텍스트 스위칭](/imgs/blog/posts/process-thread/context_switching.png)
@@ -41,7 +40,7 @@ CPU 사용이 프로세스A에서 프로세스B로 바뀔 때, 이전까지 실�
 
 ![사용자 영역](/imgs/blog/posts/process-thread/memory.png)
 
-코드 영역(code segment = 테스트 영역 text segment)
+#### 코드 영역(code segment = 테스트 영역 text segment)
 
 기계어로 이루어진 명령어가 저장된 공간으로 읽기 전용임.
 
@@ -115,3 +114,6 @@ CPU를 할당받아 실행 중인 상태. 실행 상태인 프로세스는 할�
 → 장: 메모리를 효율적으로 사용
 
 → 단: 하나의 스레드에 문제가 생기면 프로세스 전체에 문제가 생길 수 있음
+
+출처:  
+[혼자 공부하는 컴퓨터 구조+운영체제](https://product.kyobobook.co.kr/detail/S000061584886?utm_source=google&utm_medium=cpc&utm_campaign=googleSearch&gad_source=1&gclid=Cj0KCQiAzoeuBhDqARIsAMdH14GeU5OJpwRGzE6DkX9i8xKc7p7iwKsF0GbC_P-pP-GccWSHKRkKmJ4aAtbTEALw_wcB)
