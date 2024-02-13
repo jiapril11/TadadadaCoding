@@ -48,8 +48,7 @@ export default function MarkdownViewer({ content }: Props) {
           },
           img: (image) => (
             <Image
-              // className="w-auto h-auto"
-              className="w-full md:w-9/12 lg:-7/12 h-auto mx-auto"
+              className="w-auto h-auto"
               src={image.src || ""}
               alt={image.alt || ""}
               width={`880`}
