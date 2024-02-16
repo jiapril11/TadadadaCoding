@@ -60,6 +60,11 @@ export default function MarkdownViewer({ content }: Props) {
               {children}
             </blockquote>
           ),
+          a: ({ href, children }) => (
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          ),
         }}
       >
         {content}
