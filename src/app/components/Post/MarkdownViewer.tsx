@@ -65,6 +65,11 @@ export default function MarkdownViewer({ content }: Props) {
               {children}
             </a>
           ),
+          table: ({ children }) => (
+            <div className="overflow-auto">
+              <table>{children}</table>
+            </div>
+          ),
         }}
       >
         {content}
