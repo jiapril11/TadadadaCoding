@@ -1,7 +1,7 @@
 ---
-title: "Virtual DOM"
+title: "가상돔과 실제돔"
+coverTitle: "Virtual DOM"
 date: "2024-02-23"
-cover: "virtual_dom.jpeg"
 category: "React"
 published: true
 ---

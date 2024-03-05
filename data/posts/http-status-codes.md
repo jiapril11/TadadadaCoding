@@ -1,5 +1,6 @@
 ---
-title: "HTTP Status codes"
+title: "HTTP 상태 코드"
+coverTitle: "HTTP Status codes"
 date: "2024-01-20"
 cover: "httpcode.jpg"
 category: "Network"

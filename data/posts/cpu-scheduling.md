@@ -1,7 +1,7 @@
 ---
 title: "CPU Scheduling"
+coverTitle: "CPU Scheduling"
 date: "2024-02-15"
-cover: "cpu_scheduling.jpeg"
 category: "OS"
 published: true
 ---
