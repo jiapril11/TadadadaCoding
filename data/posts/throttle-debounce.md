@@ -1,7 +1,7 @@
 ---
-title: "Throttle & Debounce"
+title: "스로틀과 디바운스"
+coverTitle: "Throttle & Debounce"
 date: "2024-02-26"
-cover: "throttle_debouce.jpeg"
 category: "React"
 published: true
 ---

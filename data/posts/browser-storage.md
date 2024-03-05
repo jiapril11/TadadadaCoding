@@ -1,8 +1,8 @@
 ---
-title: "Cookie, Web storage, Indexed DB, Session"
+title: "Browser storage"
+coverTitle: "Cookie, Web storage, Indexed DB, Session"
 date: "2024-02-22"
-cover: "browser_storage.jpeg"
-category: "network"
+category: "Network"
 published: true
 ---
 

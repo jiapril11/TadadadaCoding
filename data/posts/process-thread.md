@@ -1,7 +1,7 @@
 ---
-title: "프로세스(Process)와 스레드(Thread)"
+title: "프로세스와 스레드"
+coverTitle: "Process & Thread"
 date: "2024-02-07"
-cover: "process_thread.jpg"
 category: "OS"
 published: true
 ---

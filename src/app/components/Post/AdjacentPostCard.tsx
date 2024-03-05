@@ -2,7 +2,7 @@ import Link from "next/link";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 type Props = {
-  post: { id: string; title: string; date: string; cover: string } | null;
+  post: { id: string; title: string; date: string; coverTitle: string } | null;
   type: "next" | "prev";
 };
 

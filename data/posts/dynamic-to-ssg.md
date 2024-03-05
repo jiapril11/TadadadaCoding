@@ -1,7 +1,7 @@
 ---
-title: "dynamic to SSG in Next.js"
+title: "Next.js 동적 렌더링에서 SSG 렌더링으로 변경하기"
+coverTitle: "dynamic to SSG in Next.js"
 date: "2024-02-08"
-cover: "dynamic_to_ssg.jpeg"
 category: "Next"
 published: true
 ---

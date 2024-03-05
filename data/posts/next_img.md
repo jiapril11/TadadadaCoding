@@ -1,7 +1,7 @@
 ---
 title: "Next.js의 이미지 최적화"
+coverTitle: "Image Optimization in Next.js"
 date: "2024-03-01"
-cover: "virtual_dom.jpeg"
 category: "Next"
 published: true
 ---

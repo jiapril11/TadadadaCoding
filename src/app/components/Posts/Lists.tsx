@@ -25,7 +25,7 @@ export default function Lists({
             ? true
             : post.category === selectedCategory
         )
-        .map((post) =>
+        .map((post, index, postsLength) =>
           view === "list" ? (
             <List key={post.id} post={post} />
           ) : (

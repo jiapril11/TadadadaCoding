@@ -1,7 +1,7 @@
 ---
 title: "String.prototype.padStart()"
+coverTitle: "padStart() & padEnd()"
 date: "2024-02-19"
-cover: "padstart.jpg"
 category: "Javascript"
 published: true
 ---
