@@ -4,9 +4,9 @@ import MarkdownViewer from "@/app/components/Post/MarkdownViewer";
 import WidthLayout from "@/app/components/WidthLayout";
 import { getPostData, getSortedPostsData } from "@/service/posts";
 import DateNormal from "@/app/components/Posts/Date";
-import HeroImage from "@/app/components/Post/HeroImage";
 import ListBackBtns from "@/app/components/Posts/ListBackBtns";
 import { Metadata } from "next";
+import HeroTitle from "@/app/components/Post/HeroTitle";
 
 type Props = {
   params: {
@@ -36,7 +36,7 @@ export default async function PostPage({ params: { slug } }: Props) {
 
   return (
     <article className="relative w-full pb-10 break-keep">
-      <HeroImage frontmatter={frontmatter} />
+      <HeroTitle frontmatter={frontmatter} />
       <WidthLayout>
         <div className="mt-8 mb-16">
           <h1 className="mb-4 text-3xl text-center font-semibold">

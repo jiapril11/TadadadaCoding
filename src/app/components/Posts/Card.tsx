@@ -3,31 +3,28 @@ import Link from "next/link";
 import React from "react";
 import DateNormal, { DateDistance } from "./Date";
 import { PostData } from "@/service/posts";
+import localFont from "next/font/local";
 
-// TODO: dateType 상수화
-export default function Card({
-  post,
-  dateType,
-}: {
+const oksunFont = localFont({
+  src: "../../../../public/fonts/her-leeoksun.ttf",
+});
+
+type Props = {
   post: PostData;
   dateType: "normal" | "distance";
-}) {
+};
+
+// TODO: dateType 상수화
+export default function Card({ post, dateType }: Props) {
   return (
     <li className="relative border border-black rounded-md overflow-hidden">
       <Link href={`/posts/${post.id}`}>
-        <div className="relative h-[200px]">
-          {post.cover ? (
-            <Image
-              src={`/imgs/blog/cover/${post.cover}`}
-              alt={`${post.title} 썸네일`}
-              fill
-              className="object-cover"
-            />
-          ) : (
-            <div className="h-full flex justify-center items-center text-gray-400 bg-gray-800">
-              <span>No Image</span>
-            </div>
-          )}
+        <div className="relative flex justify-center items-center w-full h-[200px] p-3 bg-black">
+          <h2
+            className={`p-0.5 text-3xl text-center text-white font-bold break-keep bg-black ${oksunFont.className}`}
+          >
+            {post.coverTitle}
+          </h2>
         </div>
         <div className="px-3 py-2 box-border">
           <p className="truncate mb-3 font-semibold">{post.title}</p>

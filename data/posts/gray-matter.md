@@ -1,7 +1,7 @@
 ---
-title: "Front Matter & Content in markdown with gray-matter"
+title: "gray-matter와 마크다운 (with front matter)"
+coverTitle: "Front Matter & Content in markdown with gray-matter"
 date: "2024-02-16"
-cover: "gray_matter.jpeg"
 category: "React"
 published: true
 ---

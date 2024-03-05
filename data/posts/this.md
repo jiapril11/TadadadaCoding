@@ -1,7 +1,7 @@
 ---
 title: "this"
+coverTitle: "this keyword in Javascript"
 date: "2024-02-02"
-cover: "this.jpg"
 category: "Javascript"
 published: true
 ---

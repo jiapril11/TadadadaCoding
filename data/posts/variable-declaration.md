@@ -1,7 +1,7 @@
 ---
-title: "variable declaration in javascript"
+title: "var, let, const"
+coverTitle: "variable declaration in javascript"
 date: "2024-02-21"
-cover: "variable_declaration.jpeg"
 category: "Javascript"
 published: true
 ---

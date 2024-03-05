@@ -1,7 +1,7 @@
 ---
-title: "React Life Cycle"
+title: "React 라이프 사이클"
+coverTitle: "React Life Cycle"
 date: "2024-01-17"
-cover: "life_cycle.jpg"
 category: "React"
 published: true
 ---

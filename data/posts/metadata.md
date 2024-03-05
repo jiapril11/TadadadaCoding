@@ -1,7 +1,7 @@
 ---
-title: "metadata in Next.js"
+title: "Next.js에서 메타데이터 설정하기"
+coverTitle: "metadata in Next.js"
 date: "2024-02-13"
-cover: "metadata.jpg"
 category: "Next"
 published: true
 ---

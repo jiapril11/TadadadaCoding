@@ -8,7 +8,7 @@ export type PostData = {
   id?: string;
   title: string;
   date: string;
-  cover: string;
+  coverTitle: string;
   category: string;
 };
 
@@ -27,7 +27,7 @@ export function getSortedPostsData(num?: number) {
       ...(matterResult.data as {
         title: string;
         date: string;
-        cover: string;
+        coverTitle: string;
         category: string;
         published: true;
       }),
@@ -48,7 +48,7 @@ export async function getPostData(id: string) {
   const frontmatter = {
     title: data.title,
     date: data.date,
-    cover: data.cover,
+    coverTitle: data.coverTitle,
     category: data.category,
   };
 

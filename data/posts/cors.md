@@ -1,7 +1,7 @@
 ---
 title: "CORS"
+coverTitle: "Cross-Origin Resource Sharing"
 date: "2024-01-13"
-cover: "cors.jpg"
 category: "Network"
 published: true
 ---
