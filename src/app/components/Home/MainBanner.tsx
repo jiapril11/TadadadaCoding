@@ -5,7 +5,10 @@ import WidthLayout from "../WidthLayout";
 import { TypeAnimation } from "react-type-animation";
 import { Pixelify_Sans } from "next/font/google";
 
-const pixelifySans = Pixelify_Sans({ subsets: ["latin"] });
+const pixelifySans = Pixelify_Sans({
+  subsets: ["latin"],
+  adjustFontFallback: false,
+});
 
 export default function MainBanner() {
   return (
