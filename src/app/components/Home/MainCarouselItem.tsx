@@ -18,7 +18,13 @@ export default function MainCarouselItem({
         className={`absolute top-0 left-1/2 md:left-auto md:right-5 w-11/12 md:w-2/5 flex flex-col px-5 py-4 -translate-x-1/2 md:translate-x-0 bg-white shadow-md md:shadow-none rounded transition-all`}
       >
         <div className="flex items-center gap-2 mb-5">
-          <Image src={logo} alt={`${project.title}`} width="46" height="500" />
+          <Image
+            src={logo}
+            alt={`${project.title}`}
+            width="46"
+            height="46"
+            className="w-auto h-auto"
+          />
           <h3 className="text-2xl font-semibold">{title}</h3>
         </div>
         <div className="flex flex-wrap gap-2">

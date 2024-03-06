@@ -14,7 +14,9 @@ export default function Card({ project }: { project: ProjectData }) {
           <Image
             src={`/imgs/projects/${project.imagePath}/${project.cover}`}
             alt={`${project.title} 썸네일`}
+            priority
             fill={true}
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="object-cover"
           />
         </div>
