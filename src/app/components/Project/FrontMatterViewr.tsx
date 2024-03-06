@@ -32,9 +32,10 @@ export default function FrontMatterViewr({
                   key={i}
                   src={`/imgs/projects/${imagePath}/${image}`}
                   alt={`${title} 이미지`}
+                  priority={i === 0 ? true : false}
                   width={600}
                   height={500}
-                  className="mx-auto"
+                  className="mx-auto w-full max-w-[500px] lg:max-w-full h-auto max-h-[413px]"
                 />
               ))}
             </SingleCarousel>
