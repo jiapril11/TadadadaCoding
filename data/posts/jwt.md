@@ -102,7 +102,7 @@ SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 - HTTP 헤더를 통해 JWT 토큰을 전송하는 경우 토큰이 너무 커지지않도록 해야함. 일부 서버는 헤더에 8KB 이상 허용하지 않음. → 많은 정보를 포함하려면 Auth0 세분화된 권한 부여와 같은 대체 솔루션 필요
 - 토큰이 `Authorization` 헤더로 전송되는 경우, CORS는 쿠키를 사용하지 않으므로 문제가 되지 않음.
 
-![jwt](/imgs/blog/posts/cpu-scheduling/ready_waiting_queue.png)
+![jwt](/imgs/blog/posts/jwt/jwt.png)
 
 1. 애플리케이션이 인증 서버에 인증 요청
 2. 권한이 부여되면 권한 부여 서버는 애플리케이션에 액세스 토큰을 반환
