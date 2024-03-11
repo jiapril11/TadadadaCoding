@@ -25,7 +25,7 @@ const projects = [
     cover: "/imgs/home/amigo-signal.png",
     logo: "/imgs/home/amigo-signal-logo.png",
     url: "https://www.amigo-signal.com",
-    github: "https://github.com/congjiwon/amigo_signal",
+    github: "https://github.com/jiapril11/amigo_signal",
     pageLink: "/projects/amigo-signal",
     tags: [
       "여행동행찾기",

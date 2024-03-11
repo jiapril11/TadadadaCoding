@@ -12,7 +12,7 @@ images:
   - "amigo_signal_05.png"
   - "amigo_signal_06.png"
   - "amigo_signal_07.png"
-github: "https://github.com/congjiwon/amigo_signal"
+github: "https://github.com/jiapril11/amigo_signal"
 people: "6명(Frontend-5, Designer-1)"
 categories:
   - "React"
