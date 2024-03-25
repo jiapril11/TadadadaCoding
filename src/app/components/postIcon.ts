@@ -9,6 +9,7 @@ import {
 import { TbBrandNextjs } from "react-icons/tb";
 import { FaCss3Alt, FaHtml5, FaGithub, FaNetworkWired } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
+import { FaComputer } from "react-icons/fa6";
 
 const postIcons: Record<string, React.ReactElement> = {
   react: React.createElement(BiLogoReact, {}),
@@ -22,6 +23,7 @@ const postIcons: Record<string, React.ReactElement> = {
   error: React.createElement(BiSolidError, {}),
   etc: React.createElement(BiCoffeeTogo, {}),
   os: React.createElement(AiFillSetting, {}),
+  cs: React.createElement(FaComputer, {}),
 };
 
 export default postIcons;
