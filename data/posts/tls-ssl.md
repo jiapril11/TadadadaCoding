@@ -54,3 +54,8 @@ published: true
 6. **세션키 생성**(client, server)
 
 - 클라이언트와 서버의 임시 키는 세션 키로 바뀌고 본격적으로 서로간 통신 가능
+
+출처:  
+[그림으로 쉽게 보는 HTTPS, SSL, TLS](https://brunch.co.kr/@swimjiy/47)  
+[정보통신기술용어해설 | SSL/TLS](http://www.ktword.co.kr/test/view/view.php?m_temp1=1957)  
+[SSL, TLS, HTTPS는 무엇인가요?](https://www.digicert.com/kr/what-is-ssl-tls-and-https)
