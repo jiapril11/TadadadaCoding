@@ -3,7 +3,7 @@ title: "HTTP 상태 코드"
 coverTitle: "HTTP Status codes"
 date: "2024-01-20"
 cover: "httpcode.jpg"
-category: "Network"
+category: "System"
 published: true
 ---
 

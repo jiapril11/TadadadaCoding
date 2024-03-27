@@ -2,7 +2,7 @@
 title: "JWT(JSON Web Tokens)"
 coverTitle: "Understanding JWT"
 date: "2024-03-08"
-category: "Etc"
+category: "System"
 published: true
 ---
 

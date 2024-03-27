@@ -2,7 +2,7 @@
 title: "Browser storage"
 coverTitle: "Cookie, Web storage, Indexed DB, Session"
 date: "2024-02-22"
-category: "Network"
+category: "System"
 published: true
 ---
 

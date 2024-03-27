@@ -2,7 +2,7 @@
 title: "Access Token, Refresh Token"
 coverTitle: "Understanding Token Security Measures"
 date: "2024-03-08"
-category: "Etc"
+category: "System"
 published: true
 ---
 

@@ -2,7 +2,7 @@
 title: HTTP와 HTTPS
 coverTitle: "Hypertext Transfer Protocol Secure"
 date: "2024-03-25"
-category: "OS"
+category: "System"
 published: true
 ---
 

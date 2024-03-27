@@ -2,7 +2,7 @@
 title: 컴퓨터의 기본 구성 요소
 coverTitle: "CPU, Memory, Secondary Storage Devices, Input/Output Devices"
 date: "2024-03-25"
-category: "CS"
+category: "System"
 published: true
 ---
 

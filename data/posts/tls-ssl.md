@@ -2,7 +2,7 @@
 title: HTTPS의 보안 - SSL, TLS
 coverTitle: "SSL(Secure Sockets Layer) & TLS(Transport Layer Security)"
 date: "2024-03-26"
-category: "OS"
+category: "System"
 published: true
 ---
 
@@ -10,7 +10,7 @@ published: true
 
 - 웹사이트가 SSL/TLS 인증서로 보호될때 HTTPS가 됨.
 - SSL은 서버와 클라이언트(또는 두 서버 사이)에 전송되는 데이터를 암호화하여 인터넷 연결을 보호하기 위한 보안 계층.
-- HTTP - SSL/TLS - TCP - IP 순으로 계층이 이루어짐 (HTTP는 Application layer에 속하고 FTP, SMTP과 같은 프로토몰과 조합해서 사용할 수 있음)
+- HTTP - SSL/TLS - TCP - IP 순으로 계층이 이루어짐 (HTTP는 Application layer에 속하고 FTP, SMTP과 같은 프로토콜과 조합해서 사용할 수 있음)
 - TLS는 SSL의 향상된 버전으로 현재 SSL을 사용하고 있지 않음에도 익숙한 SSL로 부르고 있음.
 
 ### 대칭키 기법
