@@ -16,7 +16,6 @@ getDerivedStateFromProps → shouldComponentUpdate (true) → render → getSnap
 componentWillUnmount
 
 ![Lifecyle Image](/imgs/blog/posts/react-life-cycle/life-cycle.png)
-https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
 클래스형 컴포넌트에서만 사용 할 수 있으며 함수형 컴포넌트에서는 useEffect가 비슷한 역할을 수행.  
  **Mounting**:  
