@@ -2,7 +2,7 @@
 title: "정보와 문자 인코딩"
 coverTitle: "Information and Character Encoding"
 date: "2024-03-26"
-category: "CS"
+category: "System"
 published: true
 ---
 

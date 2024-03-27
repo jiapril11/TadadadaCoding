@@ -2,7 +2,7 @@
 title: "TCP와 UDP"
 coverTitle: "TCP vs UDP"
 date: "2024-01-20"
-category: "Javascript"
+category: "System"
 published: true
 ---
 

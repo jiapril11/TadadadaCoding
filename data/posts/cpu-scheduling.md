@@ -2,7 +2,7 @@
 title: "CPU Scheduling"
 coverTitle: "CPU Scheduling"
 date: "2024-02-15"
-category: "OS"
+category: "System"
 published: true
 ---
 
