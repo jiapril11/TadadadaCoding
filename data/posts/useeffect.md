@@ -1,6 +1,6 @@
 ---
-title: "React useEffect"
-coverTitle: "useEffect Hook"
+title: "useEffect Hook"
+coverTitle: "React Hooks - useEffect"
 date: "2024-03-27"
 category: "React"
 published: true
