@@ -1,7 +1,7 @@
 ---
 title: "CPU Scheduling"
 coverTitle: "CPU Scheduling"
-date: "2024-02-15"
+date: "2024-04-08"
 category: "System"
 published: true
 ---
