@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import DateNormal, { DateDistance } from "./Date";
@@ -19,7 +18,7 @@ export default function Card({ post, dateType }: Props) {
   return (
     <li className="relative border border-black rounded-md overflow-hidden">
       <Link href={`/posts/${post.id}`}>
-        <div className="relative flex justify-center items-center w-full h-[200px] p-3 bg-black">
+        <div className="relative flex justify-center items-center w-full min-h-[200px] md:min-h-[250px] p-3 bg-black">
           <h2
             className={`p-0.5 text-3xl text-center text-white font-bold break-keep bg-black ${oksunFont.className}`}
           >

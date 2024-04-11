@@ -1,6 +1,6 @@
 import React from "react";
 import WidthLayout from "../components/WidthLayout";
-import ListWrapper from "../components/Posts/ListsWrapper";
+import PostsWrapper from "../components/Posts/PostsWrapper";
 import { getSortedPostsData } from "@/service/posts";
 import { Kreon } from "next/font/google";
 import ViewButton from "../components/Posts/ViewButton";
@@ -38,7 +38,7 @@ export default function PostsPage() {
               <CategorySelect categories={categories} />
             </div>
             <div>
-              <ListWrapper posts={posts} categories={categories} />
+              <PostsWrapper posts={posts} categories={categories} />
             </div>
           </div>
 
