@@ -12,7 +12,7 @@ export type PostData = {
   category: string;
 };
 
-export function getSortedPostsData(num?: number) {
+export function getSortedPostsData(start = 0, end?: number) {
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, "");
@@ -37,7 +37,7 @@ export function getSortedPostsData(num?: number) {
   return allPostsData
     .filter((post) => post.published)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
-    .slice(0, num ? num : allPostsData.length);
+    .slice(start, end ? end : allPostsData.length);
 }
 
 export async function getPostData(id: string) {
