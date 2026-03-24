@@ -101,7 +101,7 @@ export default function StatementSection() {
           className={styles.label}
           style={{ opacity: 0, transform: 'translateY(16px)' }}
         >
-          // 03 · Who I Am
+          {'// 03 · Who I Am'}
         </div>
 
         <div className={styles.statement}>

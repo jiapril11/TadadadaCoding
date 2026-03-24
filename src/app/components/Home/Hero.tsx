@@ -214,7 +214,7 @@ export default function HeroSection() {
         Open to work
       </div>
       <div ref={statusRef} className={styles.status}>
-        // 2025 · TADADADA
+        {'// 2025 · TADADADA'}
       </div>
       <div ref={scrollHintRef} className={styles.scrollHint}>
         <span>SCROLL</span>

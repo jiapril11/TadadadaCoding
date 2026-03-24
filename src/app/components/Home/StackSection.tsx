@@ -104,7 +104,7 @@ export default function StackSection() {
           className={styles.label}
           style={{ opacity: 0, transform: 'translateY(20px)' }}
         >
-          // 02 · What I Work With
+          {'// 02 · What I Work With'}
         </div>
 
         <div className={styles.heading}>
