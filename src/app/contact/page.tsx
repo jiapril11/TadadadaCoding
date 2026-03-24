@@ -1,7 +1,7 @@
 import React from "react";
 import WidthLayout from "../components/WidthLayout";
-import Profile from "../components/About/Profile";
-import ContactForm from "../components/About/ContactForm";
+import Profile from "../components/Contact/Profile";
+import ContactForm from "../components/Contact/ContactForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default function ContactPage() {
   return (
     <WidthLayout>
       <Profile />
