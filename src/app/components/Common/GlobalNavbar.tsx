@@ -8,7 +8,7 @@ import { IoClose } from "react-icons/io5";
 export default function GlobalNavbar() {
   const currentRoute = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const linkNames = ["about", "posts", "projects"];
+  const linkNames = ["projects", "posts", "contact"];
 
   const handleToggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -28,7 +28,7 @@ export default function GlobalNavbar() {
               className={`capitalize ${
                 currentRoute.includes("/" + name) &&
                 `underline decoration-sky-500 underline-offset-4`
-              }`}
+              } ${currentRoute === '/' ? 'text-white opacity-50' : 'text-black'} hover:text-sky-500`}
             >
               {name}
             </Link>
@@ -43,13 +43,13 @@ export default function GlobalNavbar() {
       >
         <div className="flex flex-col justify-between w-[20px] h-[20px] transform tansition-all duration-300 origin-center overflow-hidden">
           <div
-            className={`h-[2px] w-7 transform transition-all duration-300 origin-left bg-slate-900`}
+            className={`h-[2px] w-7 transform transition-all duration-300 origin-left ${currentRoute === '/' ? 'bg-white/50' : 'bg-slate-900'}`}
           ></div>
           <div
-            className={`h-[2px] w-1/2 rounded transform transition-all duration-300 bg-slate-900`}
+            className={`h-[2px] w-1/2 rounded transform transition-all duration-300 ${currentRoute === '/' ? 'bg-white/50' : 'bg-slate-900'}`}
           ></div>
           <div
-            className={`h-[2px] w-7 transform transition-all duration-300 origin-left bg-slate-900`}
+            className={`h-[2px] w-7 transform transition-all duration-300 origin-left ${currentRoute === '/' ? 'bg-white/50' : 'bg-slate-900'}`}
           ></div>
         </div>
       </button>
