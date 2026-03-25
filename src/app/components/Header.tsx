@@ -7,6 +7,7 @@ import Link from "next/link";
 import GlobalNavbar from "./Common/GlobalNavbar";
 // import LogoSVG from "./Common/SVG/LogoSVG";
 import { usePathname } from 'next/navigation';
+import { useMBDrawerStore } from '@/store/nav/mbDrawerStore';
 
 const kreon = Kreon({ subsets: ["latin"] });
 
@@ -14,8 +15,10 @@ export default function Header() {
   const pathName = usePathname();
   const isHome = pathName === '/';
   const headerRef = useRef<HTMLElement>(null);
+  const {isMobileMenuOpen} = useMBDrawerStore()
 
   useEffect(() => {
+    console.log(isMobileMenuOpen)
     const onScroll = () => {
       if(window.scrollY > 60) {
         headerRef.current?.classList.add('backdrop-blur-sm');
@@ -29,10 +32,18 @@ export default function Header() {
           headerRef.current?.classList.remove('bg-white/75');
       }
     }
-    window.addEventListener('scroll', onScroll, {passive: true});
+    if(isMobileMenuOpen) {
+      headerRef.current?.classList.remove('backdrop-blur-sm');
+      isHome ?
+        headerRef.current?.classList.remove('bg-black/75') :
+        headerRef.current?.classList.remove('bg-white/75');
+    } else {
+      onScroll();
+      window.addEventListener('scroll', onScroll, {passive: true});
+    }
 
     return () => window.removeEventListener('scroll', onScroll)
-  })
+  }, [isMobileMenuOpen, isHome])
 
   return (
     <header

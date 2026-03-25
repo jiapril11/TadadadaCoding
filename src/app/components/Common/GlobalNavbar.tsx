@@ -1,21 +1,15 @@
 "use client";
 
+import { useMBDrawerStore } from '@/store/nav/mbDrawerStore';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+
 
 export default function GlobalNavbar() {
   const currentRoute = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const {isMobileMenuOpen, setToggleMobileMenu, setCloseMobileMenu} = useMBDrawerStore()
   const linkNames = ["projects", "posts", "contact"];
-
-  const handleToggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-  const handleCloseMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
 
   return (
     <nav>
@@ -39,7 +33,7 @@ export default function GlobalNavbar() {
       {/* Mobile */}
       <button
         className="flex relative group sm:hidden"
-        onClick={handleToggleMobileMenu}
+        onClick={setToggleMobileMenu}
       >
         <div className="flex flex-col justify-between w-[20px] h-[20px] transform tansition-all duration-300 origin-center overflow-hidden">
           <div
@@ -55,7 +49,7 @@ export default function GlobalNavbar() {
       </button>
 
       <div
-        className={`top-0 left-0 w-full h-full bg-opacity-80 backdrop-blur-sm z-50 ${
+        className={`top-0 bottom-0 left-0 right-0 w-[100dvw] h-[100dvh] bg-opacity-80 backdrop-blur-sm z-50 ${
           isMobileMenuOpen ? `fixed` : `hidden`
         }`}
       >
@@ -66,7 +60,7 @@ export default function GlobalNavbar() {
         >
           <button
             className="text-white text-2xl text-right ml-auto mr-4 mt-4"
-            onClick={handleCloseMobileMenu}
+            onClick={setCloseMobileMenu}
           >
             <IoClose />
           </button>
@@ -74,7 +68,7 @@ export default function GlobalNavbar() {
             {/* TODO: Domain 변경 */}
             <Link
               href={`/`}
-              onClick={handleCloseMobileMenu}
+              onClick={setCloseMobileMenu}
               className={`capitalize text-white text-xl ${
                 currentRoute === "/" &&
                 `underline decoration-sky-500 underline-offset-4`
@@ -86,7 +80,7 @@ export default function GlobalNavbar() {
               <Link
                 key={name}
                 href={`/${name}`}
-                onClick={handleCloseMobileMenu}
+                onClick={setCloseMobileMenu}
                 className={`capitalize text-white text-xl ${
                   currentRoute.includes("/" + name) &&
                   `underline decoration-sky-500 underline-offset-4`
