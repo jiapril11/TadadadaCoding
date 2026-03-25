@@ -21,6 +21,10 @@ export default function HeroSection() {
   const cursorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    if (window.scrollY > 0) {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     const els = [
