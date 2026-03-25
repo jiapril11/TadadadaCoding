@@ -13,7 +13,7 @@ export default function Footer() {
   const currentRoute = usePathname();
   if(currentRoute === '/') {
     return (
-      <footer className="flex bg-black text-xs tracking-[2px] text-[#ffffff36] border-t border-t-[#ffffff0a] sm:flex-col sm:items-start sm:gap-2 sm:py-5 sm:px-[5vw] md:flex-row md:items-center md:py-5 md:px-[6vw] lg:py-6 lg:px-[10vw]">
+      <footer className="flex bg-black text-xs tracking-[2px] text-[#ffffff36] border-t border-t-[#ffffff0a] flex-col items-start gap-2 py-5 px-[5vw] md:flex-row md:items-center md:py-5 md:px-[6vw] lg:py-6 lg:px-[10vw]">
         <span>TADADADA.CODING</span>
         <span className="sm:ml-0 md:ml-auto text-[#0ea5e959]">© 2025 — All rights reserved</span>
       </footer>
