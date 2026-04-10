@@ -1,6 +1,6 @@
 ---
 title: "Haru"
-url: "haru-lac.vercel.app"
+url: "https://haru-lac.vercel.app/"
 date: "2026-03 ~ 2026-04"
 imagePath: "bookmark_todo"
 cover: "landing.png"
