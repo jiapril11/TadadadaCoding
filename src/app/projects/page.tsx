@@ -1,5 +1,7 @@
+export const dynamic = "force-dynamic";
+
 import WidthLayout from "../components/WidthLayout";
-import { getSortedProjectsData } from "@/service/projects";
+import { getAllProjectsData } from "@/service/projects";
 import List from "../components/Project/List";
 import { Kreon } from "next/font/google";
 import { Metadata } from "next";
@@ -15,8 +17,8 @@ export const metadata: Metadata = {
 
 const kreon = Kreon({ subsets: ["latin"] });
 
-export default function ProjectsPage() {
-  const projects = getSortedProjectsData();
+export default async function ProjectsPage() {
+  const projects = await getAllProjectsData();
   const categories = [
     ...new Set(projects.map((project) => project.categories).flat()),
   ];

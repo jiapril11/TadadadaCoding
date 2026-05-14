@@ -1,7 +1,9 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import WidthLayout from "../components/WidthLayout";
 import PostsWrapper from "../components/Posts/PostsWrapper";
-import { getSortedPostsData } from "@/service/posts";
+import { getAllPostsData } from "@/service/posts";
 import { Kreon } from "next/font/google";
 import ViewButton from "../components/Posts/ViewButton";
 import CategoryBtn from "../components/Posts/CategoryBtn";
@@ -19,8 +21,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PostsPage() {
-  const posts = getSortedPostsData();
+export default async function PostsPage() {
+  const posts = await getAllPostsData();
   const categories = [...new Set(posts.map((post) => post.category))];
 
   return (
