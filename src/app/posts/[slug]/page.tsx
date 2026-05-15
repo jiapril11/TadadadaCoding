@@ -2,7 +2,7 @@ import React from "react";
 import AdjacentPostCard from "@/app/components/Post/AdjacentPostCard";
 import MarkdownViewer from "@/app/components/Post/MarkdownViewer";
 import WidthLayout from "@/app/components/WidthLayout";
-import { getPostData, getSortedPostsData } from "@/service/posts";
+import { getPostDataById, getSortedPostsData } from "@/service/posts";
 import DateNormal from "@/app/components/Posts/Date";
 import ListBackBtns from "@/app/components/Posts/ListBackBtns";
 import { Metadata } from "next";
@@ -19,7 +19,7 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const {
     frontmatter: { title },
-  } = await getPostData(decodeURIComponent(slug));
+  } = await getPostDataById(decodeURIComponent(slug));
   return {
     title,
     description: title + " 블로그 포스트",
@@ -31,7 +31,7 @@ export async function generateMetadata({
 }
 
 export default async function PostPage({ params: { slug } }: Props) {
-  const postData = await getPostData(decodeURIComponent(slug));
+  const postData = await getPostDataById(decodeURIComponent(slug));
   const { frontmatter, content, next, prev } = postData;
 
   return (

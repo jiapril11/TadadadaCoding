@@ -1,4 +1,4 @@
-import { getProjectData, getSortedProjectsData } from "@/service/projects";
+import { getProjectDataById, getSortedProjectsData } from "@/service/projects";
 import FrontMatterViewr from "@/app/components/Project/FrontMatterViewr";
 import MarkdownViewer from "@/app/components/Project/MarkdownViewer";
 import { Metadata } from "next";
@@ -14,7 +14,7 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const {
     frontmatter: { title, description },
-  } = await getProjectData(slug);
+  } = await getProjectDataById(slug);
   return {
     title,
     description,
@@ -26,7 +26,7 @@ export async function generateMetadata({
 }
 
 export default async function ProjectPage({ params: { slug } }: Props) {
-  const project = await getProjectData(slug);
+  const project = await getProjectDataById(slug);
 
   return (
     <section>
