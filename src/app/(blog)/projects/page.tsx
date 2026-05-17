@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic";
 
-import WidthLayout from "../components/WidthLayout";
 import { getAllProjectsData } from "@/service/projects";
-import List from "../components/Project/List";
 import { Kreon } from "next/font/google";
 import { Metadata } from "next";
+import WidthLayout from "@/app/components/WidthLayout";
+import List from "@/app/components/Project/List";
 
 export const metadata: Metadata = {
   title: "My Projects",
