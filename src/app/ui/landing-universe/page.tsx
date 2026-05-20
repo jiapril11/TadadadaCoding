@@ -460,11 +460,11 @@ export default function Universe() {
       <div className="bg-black flex items-center justify-center py-16 px-6 md:py-40 md:px-16">
         <blockquote className="text-center max-w-3xl">
           <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
-            "지구까지 0.158광년.
+            &ldquo;지구까지 0.158광년.
             <br />
             돌아갈 연료는 없다.
             <br />
-            하지만 나는 살아있다."
+            하지만 나는 살아있다.&rdquo;
           </p>
           <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
             Project Hail Mary — Andy Weir
@@ -574,9 +574,9 @@ export default function Universe() {
           >
             <blockquote className="text-center max-w-3xl px-12 py-10 bg-black/60 rounded-2xl">
               <p className="text-white text-2xl leading-relaxed tracking-wide">
-                "아스트로파지는 태양을 먹고 있었다.
+                &ldquo;아스트로파지는 태양을 먹고 있었다.
                 <br />
-                그리고 우리 태양만이 아니었다."
+                그리고 우리 태양만이 아니었다.&rdquo;
               </p>
               <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
                 Project Hail Mary — Andy Weir
@@ -598,9 +598,9 @@ export default function Universe() {
         >
           <blockquote className="text-center max-w-3xl px-6 py-8 bg-black/60 rounded-2xl">
             <p className="text-white text-xl leading-relaxed tracking-wide">
-              "아스트로파지는 태양을 먹고 있었다.
+              &ldquo;아스트로파지는 태양을 먹고 있었다.
               <br />
-              그리고 우리 태양만이 아니었다."
+              그리고 우리 태양만이 아니었다.&rdquo;
             </p>
             <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
               Project Hail Mary — Andy Weir
@@ -627,11 +627,11 @@ export default function Universe() {
           >
             <blockquote className="text-center max-w-3xl px-12 py-10 bg-black/50 rounded-2xl">
               <p className="text-white text-2xl leading-relaxed tracking-wide">
-                "나는 혼자가 아니었다.
+                &ldquo;나는 혼자가 아니었다.
                 <br />
                 우주 어딘가에, 다른 누군가도
                 <br />
-                같은 문제를 풀고 있었다."
+                같은 문제를 풀고 있었다.&rdquo;
               </p>
               <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
                 Project Hail Mary — Andy Weir
@@ -653,11 +653,11 @@ export default function Universe() {
         >
           <blockquote className="text-center max-w-3xl px-6 py-8 bg-black/50 rounded-2xl">
             <p className="text-white text-xl leading-relaxed tracking-wide">
-              "나는 혼자가 아니었다.
+              &ldquo;나는 혼자가 아니었다.
               <br />
               우주 어딘가에, 다른 누군가도
               <br />
-              같은 문제를 풀고 있었다."
+              같은 문제를 풀고 있었다.&rdquo;
             </p>
             <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
               Project Hail Mary — Andy Weir
