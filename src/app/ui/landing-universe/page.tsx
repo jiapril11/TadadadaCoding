@@ -1,5 +1,5 @@
 "use client";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { Gasoek_One } from "next/font/google";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -76,38 +76,81 @@ const PLANETS = [
     isDestination: true,
   },
 ];
-// SDO(태양역학관측위성) 다파장 태양 이미지 — NASA 공개 도메인
-const SOLAR_IMGS = [
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0193.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0211.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0131.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIB.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0193.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0211.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0131.jpg",
-  "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIB.jpg",
-];
+// WebGL shader sources — 유기체 파티클 필드
+const VERT_SRC = `
+attribute vec2 position;
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}
+`;
 
-// 꽃밭처럼 흩뿌려진 이미지 위치 (hydration mismatch 방지를 위해 고정값 사용)
-const FLOWER_POSITIONS = [
-  { top: 8,  left: 4,  size: 18, rotate: -8  },
-  { top: 58, left: 12, size: 15, rotate: 12  },
-  { top: 22, left: 28, size: 22, rotate: -5  },
-  { top: 72, left: 38, size: 16, rotate: 7   },
-  { top: 12, left: 52, size: 20, rotate: -15 },
-  { top: 48, left: 62, size: 14, rotate: 10  },
-  { top: 78, left: 72, size: 19, rotate: -3  },
-  { top: 18, left: 76, size: 17, rotate: 15  },
-  { top: 52, left: 86, size: 13, rotate: -10 },
-  { top: 82, left: 6,  size: 21, rotate: 5   },
-  { top: 38, left: 44, size: 16, rotate: -7  },
-  { top: 65, left: 55, size: 18, rotate: 9   },
-];
-const FLOWER_IMG = "https://picsum.photos/seed/flower/1920/1080";
+function makeFragSrc(layers: number) {
+  return `
+precision highp float;
+uniform float width;
+uniform float height;
+vec2 resolution = vec2(width, height);
+uniform float time;
+
+float random(vec2 par){
+  return fract(sin(dot(par.xy, vec2(12.9898, 78.233))) * 43758.5453);
+}
+vec2 random2(vec2 par){
+  float rand = random(par);
+  return vec2(rand, random(par + rand));
+}
+float getGlow(float dist, float radius, float intensity){
+  return pow(radius / dist, intensity);
+}
+
+void main(){
+  float t = 1.0 + time * 0.05;
+  const float layers = float(${layers});
+  float scale = 32.0;
+  float depth, phase, rotationAngle, size, glow;
+  rotationAngle = time * -0.1;
+  const float del = 1.0 / layers;
+
+  vec2 uv, fl, local_uv, index, pos, seed, centre, cell;
+  vec2 rot = vec2(cos(t), sin(t));
+  mat2 rotation = mat2(cos(rotationAngle), -sin(rotationAngle),
+                       sin(rotationAngle),  cos(rotationAngle));
+  vec3 col = vec3(0);
+  vec3 tone;
+
+  for(float i = 0.0; i <= 1.0; i += del){
+    depth = fract(i + t);
+    centre = rot * 0.2 * depth + 0.5;
+    uv = centre - gl_FragCoord.xy / resolution.x;
+    uv *= rotation;
+    uv *= mix(scale, 0.0, depth);
+    fl = floor(uv);
+    local_uv = uv - fl - 0.5;
+
+    for(float j = -1.0; j <= 1.0; j++){
+      for(float k = -1.0; k <= 1.0; k++){
+        cell = vec2(j, k);
+        index = fl + cell;
+        seed = 128.0 * i + index;
+        pos = cell + 0.9 * (random2(seed) - 0.5);
+        phase = 128.0 * random(seed);
+        tone = vec3(random(seed), random(seed + 1.0), random(seed + 2.0));
+        size = (0.6 + 0.5 * sin(phase * t)) * depth;
+        glow = size * getGlow(length(local_uv - pos), 0.07, 2.5);
+        col += 3.0 * vec3(0.02 * glow) + tone * glow;
+      }
+    }
+  }
+
+  col = 1.0 - exp(-col);
+  col = pow(col, vec3(0.4545));
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
+}
+const FLOWER_IMG =
+  "https://www.nasa.gov/wp-content/uploads/2023/06/42604134635-f3e0783737-o.jpg";
+// "https://www.nasa.gov/wp-content/uploads/2023/03/gpn-2001-000014.jpg";
 
 export default function Universe() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -119,9 +162,11 @@ export default function Universe() {
   const hWrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const gridSectionRef = useRef<HTMLDivElement>(null);
-  const gridItemsRef = useRef<HTMLDivElement[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const flowerSectionRef = useRef<HTMLDivElement>(null);
   const flowerRef = useRef<HTMLDivElement>(null);
+  const quoteRef = useRef<HTMLDivElement>(null);
+  const quote2Ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -149,7 +194,7 @@ export default function Universe() {
         );
     }, wrapperRef);
 
-    const track    = trackRef.current!;
+    const track = trackRef.current!;
     const hWrapper = hWrapperRef.current!;
     const totalMove = track.scrollWidth - window.innerWidth;
 
@@ -169,49 +214,154 @@ export default function Universe() {
       });
     }, hWrapperRef);
 
-    const gCtx = gsap.context(() => {
-      // 초기 상태 명시적으로 설정
-      gsap.set(gridItemsRef.current, { opacity: 0, scale: 0, rotation: -15 });
 
-      gsap.to(gridItemsRef.current, {
+    const g2Ctx = gsap.context(() => {
+      gsap.set(quote2Ref.current, { opacity: 0 });
+      gsap.to(quote2Ref.current, {
         opacity: 1,
-        scale: 1,
-        rotation: 0,
-        ease: "back.out(1.8)",
-        stagger: { each: 0.15, from: "random" },
+        ease: "power1.in",
         scrollTrigger: {
           trigger: gridSectionRef.current,
-          start: "top center",
-          once: true,
+          start: "33% top",
+          end: "66% top",
+          scrub: 1,
         },
       });
     });
 
     const fCtx = gsap.context(() => {
-      gsap.fromTo(
-        flowerRef.current,
-        { scale: 0.1, borderRadius: "50%" },
-        {
-          scale: 1,
-          borderRadius: "0%",
-          ease: "power1.inOut",
-          scrollTrigger: {
-            trigger: flowerSectionRef.current,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1,
-          },
+      gsap.set(flowerRef.current, { scale: 0.1, borderRadius: "50%" });
+      gsap.to(flowerRef.current, {
+        scale: 1,
+        borderRadius: "0%",
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: flowerSectionRef.current,
+          start: "top top",
+          end: "80% top",
+          scrub: 1,
         },
-      );
+      });
     }, flowerSectionRef);
+
+    const qCtx = gsap.context(() => {
+      gsap.set(quoteRef.current, { opacity: 0 });
+      gsap.to(quoteRef.current, {
+        opacity: 1,
+        ease: "power1.in",
+        scrollTrigger: {
+          trigger: flowerSectionRef.current,
+          start: "80% top",
+          end: "bottom bottom",
+          scrub: 1,
+        },
+      });
+    });
 
     ScrollTrigger.refresh();
 
     return () => {
       ctx.revert();
       hCtx.revert();
-      gCtx.revert();
+      g2Ctx.revert();
       fCtx.revert();
+      qCtx.revert();
+    };
+  }, []);
+
+  // WebGL 파티클 필드 초기화
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const isMobile = /Android|webOS|iPhone|BlackBerry|Windows Phone/i.test(
+      navigator.userAgent,
+    );
+    const layers = isMobile ? 6 : 10;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const gl = canvas.getContext("webgl");
+    if (!gl) return;
+
+    function compile(src: string, type: number) {
+      const s = gl!.createShader(type)!;
+      gl!.shaderSource(s, src);
+      gl!.compileShader(s);
+      return s;
+    }
+
+    const prog = gl.createProgram()!;
+    gl.attachShader(prog, compile(VERT_SRC, gl.VERTEX_SHADER));
+    gl.attachShader(prog, compile(makeFragSrc(layers), gl.FRAGMENT_SHADER));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+      gl.STATIC_DRAW,
+    );
+
+    const posLoc = gl.getAttribLocation(prog, "position");
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 8, 0);
+
+    const timeLoc = gl.getUniformLocation(prog, "time")!;
+    const wLoc = gl.getUniformLocation(prog, "width")!;
+    const hLoc = gl.getUniformLocation(prog, "height")!;
+    gl.uniform1f(wLoc, canvas.width);
+    gl.uniform1f(hLoc, canvas.height);
+
+    let raf: number;
+    let last = Date.now();
+    let elapsed = 0;
+    let running = false;
+
+    function draw() {
+      const now = Date.now();
+      elapsed += (now - last) / 1000;
+      last = now;
+      gl!.uniform1f(timeLoc, elapsed);
+      gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
+      raf = requestAnimationFrame(draw);
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      last = Date.now();
+      draw();
+    }
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries[0].isIntersecting ? start() : stop();
+      },
+      { threshold: 0.01 },
+    );
+    observer.observe(canvas);
+
+    function onResize() {
+      canvas!.width = window.innerWidth;
+      canvas!.height = window.innerHeight;
+      gl!.viewport(0, 0, canvas!.width, canvas!.height);
+      gl!.uniform1f(wLoc, canvas!.width);
+      gl!.uniform1f(hLoc, canvas!.height);
+    }
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      stop();
+      observer.disconnect();
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -255,7 +405,7 @@ export default function Universe() {
       {/* Quote 1 */}
       <div className="bg-black flex items-center justify-center py-40 px-16">
         <blockquote className="text-center max-w-3xl">
-          <p className="text-white text-2xl md:text-4xl leading-relaxed tracking-wide">
+          <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
             "지구까지 0.158광년.
             <br />
             돌아갈 연료는 없다.
@@ -317,53 +467,30 @@ export default function Universe() {
         </div>
       </div>
 
-      {/* Quote 2 */}
-      <div className="bg-black flex items-center justify-center py-40 px-16">
-        <blockquote className="text-center max-w-3xl">
-          <p className="text-white text-2xl md:text-4xl leading-relaxed tracking-wide">
-            "아스트로파지는 태양을 먹고 있었다.
-            <br />
-            그리고 우리 태양만이 아니었다."
-          </p>
-          <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
-            Project Hail Mary — Andy Weir
-          </cite>
-        </blockquote>
-      </div>
-
-      {/* Section 3: 꽃밭처럼 뽁뽁 — 랜덤 위치에 랜덤 순서로 태양 이미지 등장 */}
-      <div ref={gridSectionRef} className="relative bg-black h-screen overflow-hidden">
-        {FLOWER_POSITIONS.map((pos, i) => (
+      {/* Section 3: WebGL 아스트로파지 유기체 필드 */}
+      <div
+        ref={gridSectionRef}
+        className="relative bg-black"
+        style={{ height: "300vh" }}
+      >
+        <div className="relative sticky top-0 h-screen overflow-hidden">
+          <canvas ref={canvasRef} className="w-full h-full" />
           <div
-            key={i}
-            ref={(el) => { if (el) gridItemsRef.current[i] = el; }}
-            className="absolute rounded-full bg-cover bg-center"
-            style={{
-              top: `${pos.top}%`,
-              left: `${pos.left}%`,
-              width: `${pos.size}vw`,
-              height: `${pos.size}vw`,
-              backgroundImage: `url(${SOLAR_IMGS[i]})`,
-              boxShadow: "0 0 30px 4px rgba(255,160,50,0.3)",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Quote 3 */}
-      <div className="bg-black flex items-center justify-center py-40 px-16">
-        <blockquote className="text-center max-w-3xl">
-          <p className="text-white text-2xl md:text-4xl leading-relaxed tracking-wide">
-            "나는 혼자가 아니었다.
-            <br />
-            우주 어딘가에, 다른 누군가도
-            <br />
-            같은 문제를 풀고 있었다."
-          </p>
-          <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
-            Project Hail Mary — Andy Weir
-          </cite>
-        </blockquote>
+            ref={quote2Ref}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <blockquote className="text-center max-w-3xl px-12 py-10 bg-black/60 rounded-2xl">
+              <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
+                "아스트로파지는 태양을 먹고 있었다.
+                <br />
+                그리고 우리 태양만이 아니었다."
+              </p>
+              <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
+                Project Hail Mary — Andy Weir
+              </cite>
+            </blockquote>
+          </div>
+        </div>
       </div>
 
       {/* Section 4 */}
@@ -372,12 +499,30 @@ export default function Universe() {
         className="relative bg-black"
         style={{ height: "600vh" }}
       >
-        <div className="sticky top-0 h-screen flex items-center justify-center">
+        <div className="relative sticky top-0 h-screen flex items-center justify-center">
           <div
             ref={flowerRef}
             className="w-screen h-screen bg-cover bg-center"
             style={{ backgroundImage: `url(${FLOWER_IMG})` }}
           />
+          <div
+            ref={quoteRef}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <div className="absolute inset-0 bg-black/40" />
+            <blockquote className="relative text-center max-w-3xl px-8">
+              <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
+                "나는 혼자가 아니었다.
+                <br />
+                우주 어딘가에, 다른 누군가도
+                <br />
+                같은 문제를 풀고 있었다."
+              </p>
+              <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
+                Project Hail Mary — Andy Weir
+              </cite>
+            </blockquote>
+          </div>
         </div>
       </div>
     </>
