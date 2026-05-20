@@ -1,13 +1,13 @@
 export const dynamic = "force-dynamic";
 
 import React from "react";
-import WidthLayout from "../components/WidthLayout";
-import PostsWrapper from "../components/Posts/PostsWrapper";
+import WidthLayout from "@/app/components/WidthLayout";
+import PostsWrapper from "@/app/components/Posts/PostsWrapper";
 import { getAllPostsData } from "@/service/posts";
 import { Kreon } from "next/font/google";
-import ViewButton from "../components/Posts/ViewButton";
-import CategoryBtn from "../components/Posts/CategoryBtn";
-import CategorySelect from "../components/Posts/CategorySelect";
+import ViewButton from "@/app/components/Posts/ViewButton";
+import CategoryBtn from "@/app/components/Posts/CategoryBtn";
+import CategorySelect from "@/app/components/Posts/CategorySelect";
 import { Metadata } from "next";
 
 const kreon = Kreon({ subsets: ["latin"] });

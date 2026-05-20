@@ -2,8 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
@@ -42,12 +40,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body
-        className={`${notoSans.className} min-h-screen flex flex-col pt-20`}
-      >
-        <Header />
-        <main className="grow">{children}</main>
-        <Footer />
+      <body className={`${notoSans.className} min-h-screen flex flex-col`}>
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>

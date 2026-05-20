@@ -116,6 +116,12 @@ export async function getPostDataById(id: string) {
     if (!data[0]) throw new Error("Post not found");
 
     const post = data[0];
+
+    const allPosts = await getAllPostsData();
+    const currIndex = allPosts.findIndex((p) => p.id === id);
+    const next = currIndex > 0 ? allPosts[currIndex - 1] : null;
+    const prev = currIndex < allPosts.length - 1 ? allPosts[currIndex + 1] : null;
+
     return {
       id: post.slug,
       frontmatter: {
@@ -125,8 +131,8 @@ export async function getPostDataById(id: string) {
         category: post.category,
       },
       content: post.content,
-      next: null,
-      prev: null,
+      next,
+      prev,
     };
   }
 }
