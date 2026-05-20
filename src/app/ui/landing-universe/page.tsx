@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const gasoekOne = Gasoek_One({ weight: "400", subsets: ["latin"] });
 
-const TEXT_STYLE = `${gasoekOne.className} absolute text-[30vh] text-white leading-none tracking-widest select-none`;
+const TEXT_STYLE = `${gasoekOne.className} absolute text-[10vh] md:text-[22vh] lg:text-[30vh] text-white leading-none tracking-widest select-none`;
 const PLANETS = [
   {
     name: "수성",
@@ -163,19 +163,36 @@ export default function Universe() {
   const trackRef = useRef<HTMLDivElement>(null);
   const gridSectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const quote2Ref = useRef<HTMLDivElement>(null);
+  const mobileS3Ref = useRef<HTMLDivElement>(null);
+  const mobileCanvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileQuote2Ref = useRef<HTMLDivElement>(null);
   const flowerSectionRef = useRef<HTMLDivElement>(null);
   const flowerRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
-  const quote2Ref = useRef<HTMLDivElement>(null);
+  const mobileS4Ref = useRef<HTMLDivElement>(null);
+  const mobileQuoteRef = useRef<HTMLDivElement>(null);
+
+  // globals.css 의 body { overflow-x: hidden } 이 body를 스크롤 컨테이너로 만들어
+  // CSS sticky 와 position:fixed 를 모두 망가뜨림 → clip 으로 덮어씌움
+  useEffect(() => {
+    const prev = document.body.style.overflowX;
+    document.body.style.overflowX = "clip";
+    return () => {
+      document.body.style.overflowX = prev;
+    };
+  }, []);
 
   useLayoutEffect(() => {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
+    const yOffset = window.innerWidth < 768 ? "12vh" : "32vh";
+
     const ctx = gsap.context(() => {
-      gsap.set(topRef.current, { xPercent: -50, yPercent: -50, y: "-32vh" });
+      gsap.set(topRef.current, { xPercent: -50, yPercent: -50, y: `-${yOffset}` });
       gsap.set(middleRef.current, { xPercent: -50, yPercent: -50, y: 0 });
-      gsap.set(bottomRef.current, { xPercent: -50, yPercent: -50, y: "32vh" });
+      gsap.set(bottomRef.current, { xPercent: -50, yPercent: -50, y: yOffset });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -194,28 +211,31 @@ export default function Universe() {
         );
     }, wrapperRef);
 
+    let hCtx: gsap.Context | undefined;
     const track = trackRef.current!;
     const hWrapper = hWrapperRef.current!;
     const totalMove = track.scrollWidth - window.innerWidth;
+    if (totalMove > 0) {
+      hWrapper.style.height = `${totalMove + window.innerHeight}px`;
 
-    // 실제 track 너비 기반으로 wrapper 높이 정확히 설정
-    hWrapper.style.height = `${totalMove + window.innerHeight}px`;
+      hCtx = gsap.context(() => {
+        gsap.to(track, {
+          x: -totalMove,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hWrapperRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        });
+      }, hWrapperRef);
+    }
 
-    const hCtx = gsap.context(() => {
-      gsap.to(track, {
-        x: -totalMove,
-        ease: "none",
-        scrollTrigger: {
-          trigger: hWrapperRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      });
-    }, hWrapperRef);
-
+    const isMobile = window.innerWidth < 768;
 
     const g2Ctx = gsap.context(() => {
+      if (isMobile) return;
       gsap.set(quote2Ref.current, { opacity: 0 });
       gsap.to(quote2Ref.current, {
         opacity: 1,
@@ -229,7 +249,23 @@ export default function Universe() {
       });
     });
 
+    const mq2Ctx = gsap.context(() => {
+      if (!isMobile) return;
+      gsap.set(mobileQuote2Ref.current, { opacity: 0 });
+      gsap.to(mobileQuote2Ref.current, {
+        opacity: 1,
+        duration: 0.8,
+        ease: "power1.in",
+        scrollTrigger: {
+          trigger: mobileS3Ref.current,
+          start: "top 40%",
+          toggleActions: "play none none none",
+        },
+      });
+    });
+
     const fCtx = gsap.context(() => {
+      if (isMobile) return;
       gsap.set(flowerRef.current, { scale: 0.1, borderRadius: "50%" });
       gsap.to(flowerRef.current, {
         scale: 1,
@@ -245,6 +281,7 @@ export default function Universe() {
     }, flowerSectionRef);
 
     const qCtx = gsap.context(() => {
+      if (isMobile) return;
       gsap.set(quoteRef.current, { opacity: 0 });
       gsap.to(quoteRef.current, {
         opacity: 1,
@@ -258,111 +295,128 @@ export default function Universe() {
       });
     });
 
+    const mqCtx = gsap.context(() => {
+      if (!isMobile) return;
+      gsap.set(mobileQuoteRef.current, { opacity: 0 });
+      gsap.to(mobileQuoteRef.current, {
+        opacity: 1,
+        duration: 0.8,
+        ease: "power1.in",
+        scrollTrigger: {
+          trigger: mobileS4Ref.current,
+          start: "top 40%",
+          toggleActions: "play none none none",
+        },
+      });
+    });
+
     ScrollTrigger.refresh();
 
     return () => {
       ctx.revert();
-      hCtx.revert();
+      hCtx?.revert();
       g2Ctx.revert();
+      mq2Ctx.revert();
       fCtx.revert();
       qCtx.revert();
+      mqCtx.revert();
     };
   }, []);
 
   // WebGL 파티클 필드 초기화
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    function initCanvas(canvas: HTMLCanvasElement, layers: number) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-    const isMobile = /Android|webOS|iPhone|BlackBerry|Windows Phone/i.test(
-      navigator.userAgent,
-    );
-    const layers = isMobile ? 6 : 10;
+      const gl = canvas.getContext("webgl");
+      if (!gl) return () => {};
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+      function compile(src: string, type: number) {
+        const s = gl!.createShader(type)!;
+        gl!.shaderSource(s, src);
+        gl!.compileShader(s);
+        return s;
+      }
 
-    const gl = canvas.getContext("webgl");
-    if (!gl) return;
+      const prog = gl.createProgram()!;
+      gl.attachShader(prog, compile(VERT_SRC, gl.VERTEX_SHADER));
+      gl.attachShader(prog, compile(makeFragSrc(layers), gl.FRAGMENT_SHADER));
+      gl.linkProgram(prog);
+      gl.useProgram(prog);
 
-    function compile(src: string, type: number) {
-      const s = gl!.createShader(type)!;
-      gl!.shaderSource(s, src);
-      gl!.compileShader(s);
-      return s;
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+        gl.STATIC_DRAW,
+      );
+
+      const posLoc = gl.getAttribLocation(prog, "position");
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 8, 0);
+
+      const timeLoc = gl.getUniformLocation(prog, "time")!;
+      const wLoc = gl.getUniformLocation(prog, "width")!;
+      const hLoc = gl.getUniformLocation(prog, "height")!;
+      gl.uniform1f(wLoc, canvas.width);
+      gl.uniform1f(hLoc, canvas.height);
+
+      let raf: number;
+      let last = Date.now();
+      let elapsed = 0;
+      let running = false;
+
+      function draw() {
+        const now = Date.now();
+        elapsed += (now - last) / 1000;
+        last = now;
+        gl!.uniform1f(timeLoc, elapsed);
+        gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
+        raf = requestAnimationFrame(draw);
+      }
+      function start() {
+        if (running) return;
+        running = true;
+        last = Date.now();
+        draw();
+      }
+      function stop() {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries[0].isIntersecting ? start() : stop();
+        },
+        { threshold: 0.01 },
+      );
+      observer.observe(canvas);
+
+      function onResize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        gl!.viewport(0, 0, canvas.width, canvas.height);
+        gl!.uniform1f(wLoc, canvas.width);
+        gl!.uniform1f(hLoc, canvas.height);
+      }
+      window.addEventListener("resize", onResize);
+
+      return () => {
+        stop();
+        observer.disconnect();
+        window.removeEventListener("resize", onResize);
+      };
     }
 
-    const prog = gl.createProgram()!;
-    gl.attachShader(prog, compile(VERT_SRC, gl.VERTEX_SHADER));
-    gl.attachShader(prog, compile(makeFragSrc(layers), gl.FRAGMENT_SHADER));
-    gl.linkProgram(prog);
-    gl.useProgram(prog);
+    const cleanups: Array<() => void> = [];
+    if (canvasRef.current) cleanups.push(initCanvas(canvasRef.current, 10));
+    if (mobileCanvasRef.current)
+      cleanups.push(initCanvas(mobileCanvasRef.current, 6));
 
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
-      gl.STATIC_DRAW,
-    );
-
-    const posLoc = gl.getAttribLocation(prog, "position");
-    gl.enableVertexAttribArray(posLoc);
-    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 8, 0);
-
-    const timeLoc = gl.getUniformLocation(prog, "time")!;
-    const wLoc = gl.getUniformLocation(prog, "width")!;
-    const hLoc = gl.getUniformLocation(prog, "height")!;
-    gl.uniform1f(wLoc, canvas.width);
-    gl.uniform1f(hLoc, canvas.height);
-
-    let raf: number;
-    let last = Date.now();
-    let elapsed = 0;
-    let running = false;
-
-    function draw() {
-      const now = Date.now();
-      elapsed += (now - last) / 1000;
-      last = now;
-      gl!.uniform1f(timeLoc, elapsed);
-      gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
-      raf = requestAnimationFrame(draw);
-    }
-
-    function start() {
-      if (running) return;
-      running = true;
-      last = Date.now();
-      draw();
-    }
-    function stop() {
-      running = false;
-      cancelAnimationFrame(raf);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries[0].isIntersecting ? start() : stop();
-      },
-      { threshold: 0.01 },
-    );
-    observer.observe(canvas);
-
-    function onResize() {
-      canvas!.width = window.innerWidth;
-      canvas!.height = window.innerHeight;
-      gl!.viewport(0, 0, canvas!.width, canvas!.height);
-      gl!.uniform1f(wLoc, canvas!.width);
-      gl!.uniform1f(hLoc, canvas!.height);
-    }
-    window.addEventListener("resize", onResize);
-
-    return () => {
-      stop();
-      observer.disconnect();
-      window.removeEventListener("resize", onResize);
-    };
+    return () => cleanups.forEach((fn) => fn());
   }, []);
 
   return (
@@ -370,7 +424,7 @@ export default function Universe() {
       {/* Section 1 */}
       <div ref={wrapperRef} className="relative" style={{ height: "400vh" }}>
         <div
-          className="sticky top-0 h-screen bg-cover bg-center"
+          className="sticky top-0 h-screen bg-cover bg-center overflow-hidden"
           style={{
             backgroundImage:
               "url(https://assets.science.nasa.gov/dynamicimage/assets/science/missions/hubble/galaxies/spiral/Hubble_NGC3137_potm2604a.jpg?w=4182&h=3859&fit=clip&crop=faces%2Cfocalpoint)",
@@ -403,7 +457,7 @@ export default function Universe() {
       </div>
 
       {/* Quote 1 */}
-      <div className="bg-black flex items-center justify-center py-40 px-16">
+      <div className="bg-black flex items-center justify-center py-16 px-6 md:py-40 md:px-16">
         <blockquote className="text-center max-w-3xl">
           <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
             "지구까지 0.158광년.
@@ -418,14 +472,17 @@ export default function Universe() {
         </blockquote>
       </div>
 
-      {/* Section 2 */}
+      {/* Section 2 — Desktop: horizontal scroll */}
       <div
         ref={hWrapperRef}
-        className="relative bg-black"
+        className="hidden md:block relative bg-black"
         style={{ minHeight: "100vh" }}
       >
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
-          <div ref={trackRef} className="flex gap-[3vw] pl-[10vw]">
+          <div
+            ref={trackRef}
+            className="flex-shrink-0 flex gap-[3vw] pl-[10vw]"
+          >
             {PLANETS.map((planet) => (
               <div
                 key={planet.name}
@@ -436,7 +493,6 @@ export default function Universe() {
                   backgroundImage: `url(${planet.img})`,
                 }}
               >
-                {/* 텍스트 가독성을 위한 어두운 그라디언트 오버레이 */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
                 {planet.isDestination && (
                   <span className="absolute inset-0 rounded-2xl ring-2 ring-yellow-300/60 animate-pulse" />
@@ -467,20 +523,57 @@ export default function Universe() {
         </div>
       </div>
 
-      {/* Section 3: WebGL 아스트로파지 유기체 필드 */}
+      {/* Section 2 — Mobile: vertical stack */}
+      <div className="md:hidden bg-black py-10 px-5 flex flex-col gap-5">
+        {PLANETS.map((planet) => (
+          <div
+            key={planet.name}
+            className="relative rounded-2xl overflow-hidden flex flex-col justify-between p-5 text-white bg-cover bg-center"
+            style={{
+              height: "60vw",
+              backgroundImage: `url(${planet.img})`,
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+            {planet.isDestination && (
+              <span className="absolute inset-0 rounded-2xl ring-2 ring-yellow-300/60 animate-pulse" />
+            )}
+            <div className="relative flex flex-col gap-1">
+              <span className="text-xs tracking-[0.3em] uppercase text-white/70">
+                {planet.isDestination
+                  ? "✦ 목적지"
+                  : `태양으로부터 ${planet.distance}`}
+              </span>
+              <span className="text-sm text-white/50">{planet.temp}</span>
+            </div>
+            <div className="relative text-right">
+              <p
+                className={`${gasoekOne.className} leading-none text-white text-[12vw]`}
+              >
+                {planet.name}
+              </p>
+              <p className="mt-2 text-sm text-white/80 leading-snug">
+                {planet.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Section 3 — Desktop */}
       <div
         ref={gridSectionRef}
-        className="relative bg-black"
+        className="hidden md:block relative bg-black"
         style={{ height: "300vh" }}
       >
-        <div className="relative sticky top-0 h-screen overflow-hidden">
-          <canvas ref={canvasRef} className="w-full h-full" />
+        <div className="sticky top-0 h-screen bg-black">
+          <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
           <div
             ref={quote2Ref}
             className="absolute inset-0 flex items-center justify-center"
           >
             <blockquote className="text-center max-w-3xl px-12 py-10 bg-black/60 rounded-2xl">
-              <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
+              <p className="text-white text-2xl leading-relaxed tracking-wide">
                 "아스트로파지는 태양을 먹고 있었다.
                 <br />
                 그리고 우리 태양만이 아니었다."
@@ -493,25 +586,47 @@ export default function Universe() {
         </div>
       </div>
 
-      {/* Section 4 */}
+      {/* Section 3 — Mobile */}
+      <div ref={mobileS3Ref} className="md:hidden relative h-screen bg-black">
+        <canvas
+          ref={mobileCanvasRef}
+          className="absolute inset-0 w-full h-full"
+        />
+        <div
+          ref={mobileQuote2Ref}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <blockquote className="text-center max-w-3xl px-6 py-8 bg-black/60 rounded-2xl">
+            <p className="text-white text-xl leading-relaxed tracking-wide">
+              "아스트로파지는 태양을 먹고 있었다.
+              <br />
+              그리고 우리 태양만이 아니었다."
+            </p>
+            <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
+              Project Hail Mary — Andy Weir
+            </cite>
+          </blockquote>
+        </div>
+      </div>
+
+      {/* Section 4 — Desktop */}
       <div
         ref={flowerSectionRef}
-        className="relative bg-black"
+        className="hidden md:block relative bg-black"
         style={{ height: "600vh" }}
       >
-        <div className="relative sticky top-0 h-screen flex items-center justify-center">
+        <div className="sticky top-0 h-screen bg-black">
           <div
             ref={flowerRef}
-            className="w-screen h-screen bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${FLOWER_IMG})` }}
           />
           <div
             ref={quoteRef}
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center bg-black/40"
           >
-            <div className="absolute inset-0 bg-black/40" />
-            <blockquote className="relative text-center max-w-3xl px-8">
-              <p className="text-white text-xl md:text-2xl leading-relaxed tracking-wide">
+            <blockquote className="text-center max-w-3xl px-12 py-10 bg-black/50 rounded-2xl">
+              <p className="text-white text-2xl leading-relaxed tracking-wide">
                 "나는 혼자가 아니었다.
                 <br />
                 우주 어딘가에, 다른 누군가도
@@ -523,6 +638,31 @@ export default function Universe() {
               </cite>
             </blockquote>
           </div>
+        </div>
+      </div>
+
+      {/* Section 4 — Mobile */}
+      <div ref={mobileS4Ref} className="md:hidden relative h-screen bg-black">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${FLOWER_IMG})` }}
+        />
+        <div
+          ref={mobileQuoteRef}
+          className="absolute inset-0 flex items-center justify-center bg-black/40"
+        >
+          <blockquote className="text-center max-w-3xl px-6 py-8 bg-black/50 rounded-2xl">
+            <p className="text-white text-xl leading-relaxed tracking-wide">
+              "나는 혼자가 아니었다.
+              <br />
+              우주 어딘가에, 다른 누군가도
+              <br />
+              같은 문제를 풀고 있었다."
+            </p>
+            <cite className="block mt-8 text-white/40 text-sm tracking-widest uppercase">
+              Project Hail Mary — Andy Weir
+            </cite>
+          </blockquote>
         </div>
       </div>
     </>
