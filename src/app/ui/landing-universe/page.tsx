@@ -15,21 +15,21 @@ const PLANETS = [
     distance: "0.39 AU",
     temp: "−180 ~ 430°C",
     desc: "태양계의 첫 번째 관문",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/pia15162-mercury-basins-messenger-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/mercury.webp",
   },
   {
     name: "금성",
     distance: "0.72 AU",
     temp: "465°C",
     desc: "두꺼운 대기의 지옥 행성",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/venus-mariner-10-pia23791-fig2-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/venus.webp",
   },
   {
     name: "지구",
     distance: "1.00 AU",
     temp: "15°C",
     desc: "우리가 지켜야 할 단 하나의 집",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/blue-marble-apollo-17-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/earth.webp",
     highlight: true,
   },
   {
@@ -37,42 +37,42 @@ const PLANETS = [
     distance: "1.52 AU",
     temp: "−60°C",
     desc: "붉은 사막, 생명의 흔적",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/mars-full-globe-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/mars.webp",
   },
   {
     name: "목성",
     distance: "5.20 AU",
     temp: "−110°C",
     desc: "거대한 폭풍의 수호자",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/jupiter-marble-pia22946-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/jupiter.webp",
   },
   {
     name: "토성",
     distance: "9.58 AU",
     temp: "−140°C",
     desc: "고리를 두른 거대 행성",
-    img: "https://science.nasa.gov/wp-content/uploads/2023/05/saturn-farewell-pia21345-sse-banner-1920x640-1.jpg?resize=768,256",
+    img: "/imgs/ui/landing-universe/saturn.webp",
   },
   {
     name: "천왕성",
     distance: "19.2 AU",
     temp: "−195°C",
     desc: "옆으로 누운 얼음 행성",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/uranus-pia18182-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/uranus.webp",
   },
   {
     name: "해왕성",
     distance: "30.1 AU",
     temp: "−200°C",
     desc: "태양계의 마지막 경계",
-    img: "https://science.nasa.gov/wp-content/uploads/2024/03/pia01492-neptune-full-disk-16x9-1.jpg?resize=768,432",
+    img: "/imgs/ui/landing-universe/neptune.webp",
   },
   {
     name: "타우세티",
     distance: "11.9광년",
     temp: "미지",
     desc: "헤일메리호의 최종 목적지",
-    img: "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/e/ErisArtistConcept1200w.jpg?w=1200&h=900&fit=clip&crop=faces%2Cfocalpoint",
+    img: "/imgs/ui/landing-universe/ErisArtistConcept.jpg",
     isDestination: true,
   },
 ];
@@ -134,10 +134,10 @@ void main(){
         seed = 128.0 * i + index;
         pos = cell + 0.9 * (random2(seed) - 0.5);
         phase = 128.0 * random(seed);
-        tone = vec3(random(seed), random(seed + 1.0), random(seed + 2.0));
+        tone = vec3(0.7 + 0.3 * random(seed), 0.05 + 0.1 * random(seed + 1.0), 0.02 + 0.05 * random(seed + 2.0));
         size = (0.6 + 0.5 * sin(phase * t)) * depth;
         glow = size * getGlow(length(local_uv - pos), 0.07, 2.5);
-        col += 3.0 * vec3(0.02 * glow) + tone * glow;
+        col += 3.0 * vec3(0.02 * glow, 0.004 * glow, 0.002 * glow) + tone * glow;
       }
     }
   }
@@ -148,9 +148,7 @@ void main(){
 }
 `;
 }
-const FLOWER_IMG =
-  "https://www.nasa.gov/wp-content/uploads/2023/06/42604134635-f3e0783737-o.jpg";
-// "https://www.nasa.gov/wp-content/uploads/2023/03/gpn-2001-000014.jpg";
+const FLOWER_IMG = "/imgs/ui/landing-universe/last_section.webp";
 
 export default function Universe() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -190,9 +188,14 @@ export default function Universe() {
     const yOffset = window.innerWidth < 768 ? "12vh" : "32vh";
 
     const ctx = gsap.context(() => {
-      gsap.set(topRef.current, { xPercent: -50, yPercent: -50, y: `-${yOffset}` });
-      gsap.set(middleRef.current, { xPercent: -50, yPercent: -50, y: 0 });
-      gsap.set(bottomRef.current, { xPercent: -50, yPercent: -50, y: yOffset });
+      gsap.set(topRef.current, {
+        xPercent: -50,
+        yPercent: -50,
+        y: `-${yOffset}`,
+        opacity: 1,
+      });
+      gsap.set(middleRef.current, { xPercent: -50, yPercent: -50, y: 0, opacity: 1 });
+      gsap.set(bottomRef.current, { xPercent: -50, yPercent: -50, y: yOffset, opacity: 1 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -427,28 +430,28 @@ export default function Universe() {
           className="sticky top-0 h-screen bg-cover bg-center overflow-hidden"
           style={{
             backgroundImage:
-              "url(https://assets.science.nasa.gov/dynamicimage/assets/science/missions/hubble/galaxies/spiral/Hubble_NGC3137_potm2604a.jpg?w=4182&h=3859&fit=clip&crop=faces%2Cfocalpoint)",
+              "url(/imgs/ui/landing-universe/hubble_NGC3137_potm2604a.jpg)",
           }}
         >
           <div ref={groupRef} className="absolute inset-0">
             <h1
               ref={topRef}
               className={TEXT_STYLE}
-              style={{ top: "50%", left: "50%" }}
+              style={{ top: "50%", left: "50%", opacity: 0 }}
             >
               AMAZE!
             </h1>
             <h1
               ref={middleRef}
               className={TEXT_STYLE}
-              style={{ top: "50%", left: "50%" }}
+              style={{ top: "50%", left: "50%", opacity: 0 }}
             >
               AMAZE!
             </h1>
             <h1
               ref={bottomRef}
               className={TEXT_STYLE}
-              style={{ top: "50%", left: "50%" }}
+              style={{ top: "50%", left: "50%", opacity: 0 }}
             >
               AMAZE!
             </h1>
@@ -664,6 +667,13 @@ export default function Universe() {
             </cite>
           </blockquote>
         </div>
+      </div>
+
+      {/* Image Credits */}
+      <div className="bg-black py-3 px-6 text-center">
+        <p className="text-white/30 text-xs tracking-wider">
+          Image Credits: NASA, NASA/JPL-Caltech, NASA/Johns Hopkins APL
+        </p>
       </div>
     </>
   );
