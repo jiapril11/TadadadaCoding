@@ -30,7 +30,7 @@ export default function FrontMatterViewr({
               {images!.map((image: string, i: number) => (
                 <Image
                   key={i}
-                  src={`/imgs/projects/${imagePath}/${image}`}
+                  src={image.startsWith("http") ? image : `/imgs/projects/${imagePath}/${image}`}
                   alt={`${title} 이미지`}
                   priority={i === 0 ? true : false}
                   width={600}
