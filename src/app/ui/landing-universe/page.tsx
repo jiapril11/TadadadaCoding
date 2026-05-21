@@ -134,10 +134,10 @@ void main(){
         seed = 128.0 * i + index;
         pos = cell + 0.9 * (random2(seed) - 0.5);
         phase = 128.0 * random(seed);
-        tone = vec3(random(seed), random(seed + 1.0), random(seed + 2.0));
+        tone = vec3(0.7 + 0.3 * random(seed), 0.05 + 0.1 * random(seed + 1.0), 0.02 + 0.05 * random(seed + 2.0));
         size = (0.6 + 0.5 * sin(phase * t)) * depth;
         glow = size * getGlow(length(local_uv - pos), 0.07, 2.5);
-        col += 3.0 * vec3(0.02 * glow) + tone * glow;
+        col += 3.0 * vec3(0.02 * glow, 0.004 * glow, 0.002 * glow) + tone * glow;
       }
     }
   }
@@ -192,9 +192,10 @@ export default function Universe() {
         xPercent: -50,
         yPercent: -50,
         y: `-${yOffset}`,
+        opacity: 1,
       });
-      gsap.set(middleRef.current, { xPercent: -50, yPercent: -50, y: 0 });
-      gsap.set(bottomRef.current, { xPercent: -50, yPercent: -50, y: yOffset });
+      gsap.set(middleRef.current, { xPercent: -50, yPercent: -50, y: 0, opacity: 1 });
+      gsap.set(bottomRef.current, { xPercent: -50, yPercent: -50, y: yOffset, opacity: 1 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -436,21 +437,21 @@ export default function Universe() {
             <h1
               ref={topRef}
               className={TEXT_STYLE}
-              style={{ top: "50%", left: "50%" }}
+              style={{ top: "50%", left: "50%", opacity: 0 }}
             >
               AMAZE!
             </h1>
             <h1
               ref={middleRef}
               className={TEXT_STYLE}
-              style={{ top: "50%", left: "50%" }}
+              style={{ top: "50%", left: "50%", opacity: 0 }}
             >
               AMAZE!
             </h1>
             <h1
               ref={bottomRef}
               className={TEXT_STYLE}
-              style={{ top: "50%", left: "50%" }}
+              style={{ top: "50%", left: "50%", opacity: 0 }}
             >
               AMAZE!
             </h1>
