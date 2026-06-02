@@ -20,7 +20,7 @@ export default function Card({ project }: { project: ProjectData }) {
             className="object-cover"
           />
         </div>
-        <div className="flex space-x-1 absolute top-3 left-3">
+        <div className="flex flex-wrap gap-1 absolute top-3 left-3">
           {project.categories.map((category, i) => (
             <span
               key={i}
